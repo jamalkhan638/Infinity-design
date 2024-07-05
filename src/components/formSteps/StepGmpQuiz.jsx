@@ -36,9 +36,9 @@ const StepGmpQuiz = ({ formData, handleInputChange, errors }) => {
                     type="radio"
                     name={quiz.question}
                     id={`${option}-${index}`} // Ensure each ID is unique
-                    label={option}
-                    value={option}
-                    checked={formData[quiz.question] === option}
+                    label={option.label}
+                    value={option.value}
+                    // checked={formData[quiz.question] === option}
                     onChange={(e) => handleInputChange(e, quiz.question)}
                     isInvalid={!!errors[quiz.question]}
                   />

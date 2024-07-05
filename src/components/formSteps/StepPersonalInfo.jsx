@@ -10,57 +10,57 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
       </div>
       <div className="row row-cols-1 row-cols-md-2 gy-3">
         <div className="col">
-          <label className="d-block mb-1" htmlFor="first_name">
+          <label className="d-block mb-1" htmlFor="firstName">
             First Name:
           </label>
           <input
-            id="first_name"
-            name="first_name"
+            id="firstName"
+            name="firstName"
             type="text"
             className="form-control rounded-0"
-            value={formData.first_name}
+            value={formData.firstName}
             onChange={handleInputChange}
             required
           />
         </div>
         <div className="col">
-          <label className="d-block mb-1" htmlFor="last_name">
+          <label className="d-block mb-1" htmlFor="lastName">
             Last Name:
           </label>
           <input
-            id="last_name"
-            name="last_name"
+            id="lastName"
+            name="lastName"
             type="text"
             className="form-control rounded-0"
-            value={formData.last_name}
+            value={formData.lastName}
             onChange={handleInputChange}
             required
           />
         </div>
         <div className="col">
-          <label className="d-block mb-1" htmlFor="date_birth">
+          <label className="d-block mb-1" htmlFor="dob">
             Date of Birth:
           </label>
           <input
-            id="date_birth"
-            name="date_birth"
+            id="dob"
+            name="dob"
             type="date"
             className="form-control rounded-0"
-            value={formData.date_birth}
+            value={formData.dob}
             onChange={handleInputChange}
             required
           />
         </div>
         <div className="col">
-          <label className="d-block mb-1" htmlFor="phone_number">
+          <label className="d-block mb-1" htmlFor="phoneNumber">
             Phone Number:
           </label>
           <input
-            id="phone_number"
-            name="phone_number"
+            id="phoneNumber"
+            name="phoneNumber"
             type="tel"
             className="form-control rounded-0"
-            value={formData.phone_number}
+            value={formData.phoneNumber}
             onChange={handleInputChange}
             required
           />

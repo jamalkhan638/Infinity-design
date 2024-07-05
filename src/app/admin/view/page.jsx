@@ -1,5 +1,5 @@
+"use client";
 import MetaData from "@/components/seo/MetaData";
-import gmpQuestionsData from "@/data/gmpQuestionsData";
 import gmpQuestionsDataSelected from "@/data/gmpQuestionsDataSelected";
 import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
 import whmisSymbolData from "@/data/whmisSymbolData";
@@ -108,22 +108,24 @@ const ViewPage = () => {
                   Match the desciption to the symbol
                 </h2>
                 {whmisSymbolData.map((item, index) => (
-                  <div
-                    key={index}
-                    className="mt-4 d-flex flex-column flex-lg-row flex-wrap gap-2 justify-content-between"
-                  >
-                    <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
-                      <h6 className="mb-1 fw-bold">{item.title}</h6>
-                      <p className="mb-0 small">{item.description}</p>
-                    </div>
-                    <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                      <Image
-                        width={56}
-                        height={56}
-                        src={item.imgSrc}
-                        className="object-fit-contain"
-                        alt={item.imgAlt}
-                      />
+                  <div key={index}>
+                    <div className="mt-4 d-flex justify-content-between position-relative">
+                      <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
+                        <h6 className="mb-1 fw-bold">{item.title}</h6>
+                        <p className="mb-0 small">{item.description}</p>
+                      </div>
+                      <span className="line-match flex-fill d-none d-xl-flex">
+                        <span className="line-primary" />
+                      </span>
+                      <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
+                        <Image
+                          width={56}
+                          height={56}
+                          src={item.imgSrc}
+                          className="object-fit-contain"
+                          alt={item.imgAlt}
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}

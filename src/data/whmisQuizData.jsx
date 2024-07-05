@@ -1,75 +1,218 @@
 const whmisQuizData = [
   {
     question: "What does WHMIS stand for?",
+    index: 1,
     options: [
-      "Working Hazardous Metals Investigations System",
-      "Workplace Hazardous Materials Information System",
-      "Workplace Hazardous Minerals Innovation System",
-      "Worker Hazardous Materials Information System",
+      {label: "Working Hazardous Metals Investigations System",
+        value: "a"
+      },
+      
+      {
+        label: "Workplace Hazardous Materials Information System",
+        value: "b"
+
+      },
+      {
+        label: "Workplace Hazardous Minerals Innovation System",
+        value: "c"
+      },
+      {
+        label:  "Worker Hazardous Materials Information System",
+        value: "d"
+      }  
+     
     ],
   },
   {
     question: "What is the purpose of WHMIS?",
+    index: 2,
     options: [
-      "To provide information about Hazardous Materials used in the workplace",
-      "To facilitate the process of Hazard Identification in the workplace",
-      "To ensure consistency of Hazard Information in the workplace",
-      "All the above",
+      {
+        label: "To provide information about Hazardous Materials used in the workplace",
+        value: "a"
+      },
+      {
+        label: "To facilitate the process of Hazard Identification in the workplace",
+        value: "b"
+      },
+      {
+        label: "To ensure consistency of Hazard Information in the workplace",
+        value: "c"
+      },
+      {
+        label: "All the above",
+        value: "d"
+      }
+      
+      
+      
+      
     ],
   },
   {
     question:
       "Which of the following is an 'employees' responsibility under WHMIS?",
+      index: 3,
     options: [
-      "To wear required Protective Equipment",
-      "To know how to draw labels",
-      "To hold meetings with Supervisors",
-      "All the above",
+      {
+        label: "To wear required Protective Equipment",
+        value: "a"
+      },
+      {
+        label:  "To know how to draw labels",
+        value: "b"
+      },
+      {
+        label: "To hold meetings with Supervisors",
+        value: "c"
+      },
+      {
+        label: "All the above",
+        value: "c"
+      }
+      
+     
+      
+      
     ],
   },
+
+
+
   {
     question: "What should Supplier Labels Consist of?",
+    index: 4,
     options: [
-      "Supplies name and address",
-      "Symbols as indicated by the products classification",
-      "Precautionary Measures and First Aid Measures",
-      "All the above",
+      {
+        label: "Supplies name and address",
+        value: "a",
+        
+      },
+      {
+        label: "Symbols as indicated by the products classification",
+        value: "b",
+        
+      },
+      {
+        label: "Precautionary Measures and First Aid Measures",
+        value: "c",
+        
+      },
+      {
+        label:  "All the above",
+        value: "d",
+        
+      }
+      
+      
+      
+     
     ],
   },
   {
     question: "What is NOT a Material Safety Data Sheet Requirement?",
+    index: 5,
     options: [
-      "Product/Material Information",
-      "Hazardous Ingredient",
-      "The name and address of company the employee is working for",
-      "Fire Explosive Data",
+    {
+      label:  "Product/Material Information",
+      value: "a"
+    },
+    {
+      label: "Hazardous Ingredient",
+      value: "b"
+    },
+    {
+      label: "The name and address of company the employee is working for",
+      value: "c"
+    },
+    {
+      label: "Fire Explosive Data",
+      value: "d"
+    }
+     
     ],
   },
   {
     question: "What is the definition of Toxicity?",
+    index: 6,
     options: [
-      "The ability of a substance to produce an unwanted effect when the chemical has The reaction of one chemical with another to cause hard in the organs reached a sufficient concentration at a certain point in the body",
-      "The reaction of one chemical with another to cause hard in the organs",
-      "The reaction to the brain when exposed to toxins",
-      "None of the above",
+      {
+        label: "The ability of a substance to produce an unwanted effect when the chemical has The reaction of one chemical with another to cause hard in the organs reached a sufficient concentration at a certain point in the body",
+        value: "a"
+      },
+      {
+        label: "The reaction of one chemical with another to cause hard in the organs",
+        value: "b"
+      },
+      {
+        label: "The reaction to the brain when exposed to toxins",
+        value: "c"
+      },
+
+      {
+        label: "None of the above",
+        value: "d"
+      }
+  
+      
     ],
   },
   {
     question: "Who regulates the disposal of hazardous chemicals?",
-    options: [
-      "Ministry of Labour",
-      "WSIB",
-      "Transportation of Dangerous Goods Act",
-      "Ontario Environmental Legislation",
+    index: 7,
+       options: [
+        {
+          label: "Ministry of Labour",
+          value: "a"
+        },
+        {
+          label:  "WSIB",
+          value: "b"
+
+        },
+        {
+          
+          label: "Transportation of Dangerous Goods Act",
+          value: "c"
+          
+
+        },
+    
+        {
+          label: "Ontario Environmental Legislation",
+          value: "d"
+        }
+      
+      
+      
     ],
   },
   {
     question: "Who is responsible for WHMIS?",
+    index: 8,
     options: [
-      "Suppliers, Employer, Employee",
-      "Distributor, Employer, Employee",
-      "Employer, Customer, Employee",
-      "All of the Above",
+      {
+        label: "Suppliers, Employer, Employee",
+        value: "a"
+      },
+      {
+        label:  "Distributor, Employer, Employee",
+        value: "b"
+      },
+      {
+        label: "Employer, Customer, Employee",
+        value: "c"
+
+      },
+      {
+        label: "All of the Above",
+        value: "d"
+      }
+      
+      
+     
+      
+      
     ],
   },
 ];

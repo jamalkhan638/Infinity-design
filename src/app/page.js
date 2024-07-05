@@ -5,27 +5,32 @@ import { Container, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import StepPersonalInfo from "@/components/formSteps/StepPersonalInfo";
 import StepWhmisQuiz from "@/components/formSteps/StepWhmisQuiz";
-import whmisQuizData from "@/data/WhmisQuizData";
+import whmisQuizData from "@/data/whmisQuizData";
 import StepGmpQuiz from "@/components/formSteps/StepGmpQuiz";
 import gmpQuestionsData from "@/data/gmpQuestionsData";
 import StepThankyou from "@/components/formSteps/StepThankyou";
 import MetaData from "@/components/seo/MetaData";
+import { registerCandidate } from "./api/api";
 
 const validatePersonalInfo = (data) => {
-  const { first_name, last_name, date_birth, phone_number, email, sin } = data;
-  return first_name && last_name && date_birth && phone_number && email && sin;
+  const { firstName, lastName, dob, phoneNumber, email, sin } = data;
+  return firstName && lastName && dob && phoneNumber && email && sin;
 };
 
 const validateWhmisQuiz = (data) => {
+  console.log("dddddddddddd", data);
   let valid = true;
   const errors = {};
-
-  whmisQuizData.forEach((quiz) => {
-    if (!data[quiz.question]) {
-      valid = false;
-      errors[quiz.question] = "This question is required.";
-    }
-  });
+  if (data?.whimis?.length < whmisQuizData?.length) {
+    valid = false;
+  }
+  // whmisQuizData.forEach((quiz) => {
+  //   if (!data[quiz.index]) {
+  //     valid = false;
+  //     errors[quiz.index] = "This question is required.";
+  //   }
+  // }
+  // );
 
   return { valid, errors };
 };
@@ -33,13 +38,15 @@ const validateWhmisQuiz = (data) => {
 const validateGmpQuiz = (data) => {
   let valid = true;
   const errors = {};
-
-  gmpQuestionsData.forEach((quiz) => {
-    if (!data[quiz.question]) {
-      valid = false;
-      errors[quiz.question] = "This question is required.";
-    }
-  });
+  if (data?.gmp?.length < gmpQuestionsData?.length) {
+    valid = false;
+  }
+  // gmpQuestionsData.forEach((quiz) => {
+  //   if (!data[quiz.question]) {
+  //     valid = false;
+  //     errors[quiz.question] = "This question is required.";
+  //   }
+  // });
 
   return { valid, errors };
 };
@@ -47,17 +54,36 @@ const validateGmpQuiz = (data) => {
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    date_birth: "",
-    phone_number: "",
+    firstName: "",
+    lastName: "",
+    dob: "",
+    phoneNumber: "",
     email: "",
     sin: "",
   });
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [whimis, setWhimis] = useState([]);
+  const [wdata, setWdata] = useState();
+  const [wcheck, setWcheck] = useState([]);
+  const [gmp, setgmp] = useState([]);
+  const handleInputChangeWhimis = (e, question, index) => {
+    const { name, value } = e.target;
+    console.log("gg", name, value, index);
+    let newVal = `${index + value}`;
+    let newValue1 = `${index + " " + value}`;
+    setWcheck([...wcheck, index]);
+    if (!wcheck?.includes(index)) {
+      setWhimis([...whimis, newVal]);
+    }
+  };
+  const handleInputChangeGMP = (e, question) => {
+    const { name, value } = e.target;
+    setgmp([...gmp, value]);
+  };
 
+  console.log("wwwwwwwww", gmp);
   const handleInputChange = (e, question) => {
     const { name, value } = e.target;
     setFormData({
@@ -66,6 +92,11 @@ export default function Home() {
     });
   };
   const handleNextStep = () => {
+    // if(!formData.whimis){
+    formData.whims = whimis;
+    
+    // }
+
     if (currentStep === 1) {
       // Step 1: Validate personal info
       if (validatePersonalInfo(formData)) {
@@ -83,6 +114,7 @@ export default function Home() {
         toast.error("Please answer all the questions.");
       }
     } else if (currentStep === 3) {
+      formData.gmp = gmp
       // Step 3: Validate GMP quiz
       const { valid, errors } = validateGmpQuiz(formData);
       if (valid) {
@@ -100,20 +132,31 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submission triggered");
+    
+      formData.whims = whimis;
+      formData.gmp = gmp
+      formData.signs_matching = wdata
+      console.log("Form submission triggered");
 
     const { valid, errors } = validateGmpQuiz(formData);
     console.log("Validation result:", { valid, errors });
     console.log("Form data:", formData);
+  
+
 
     if (valid) {
+      const res = await registerCandidate(formData)
+      if(res){
+        toast.info(res?.data?.data)
       setCurrentStep(4); // Update currentStep to 4 upon successful validation
       setSubmitted(true); // Set submitted to true after successful submission
       console.log("Submission successful, moving to step 4");
       toast.success("Thank you for your submission!");
-    } else {
+      }
+
+    } else { 
       setErrors(errors);
       console.log("Validation failed, errors:", errors);
       toast.error("Please answer all the questions.");
@@ -136,15 +179,16 @@ export default function Home() {
         return (
           <StepWhmisQuiz
             formData={formData}
-            handleInputChange={handleInputChange}
+            handleInputChange={handleInputChangeWhimis}
             errors={errors}
+            setWdata={setWdata}
           />
         );
       case 3:
         return (
           <StepGmpQuiz
             formData={formData}
-            handleInputChange={handleInputChange}
+            handleInputChange={handleInputChangeGMP}
             errors={errors}
           />
         );

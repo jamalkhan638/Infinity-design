@@ -1,10 +1,9 @@
-import whmisQuizData from "@/data/WhmisQuizData";
-import whmisSymbolData from "@/data/WhmisSymbolData";
-import Image from "next/image";
+import whmisQuizData from "@/data/whmisQuizData";
 import React from "react";
 import { Form } from "react-bootstrap";
+import CustomNodeFlow from "../line-match/CustomNodeFlow";
 
-const StepWhmisQuiz = ({ formData, handleInputChange, errors }) => {
+const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
   return (
     <>
       <fieldset>
@@ -12,26 +11,7 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors }) => {
           <h1 className="mb-5 text-capitalize display-5 fw-bold text-black">
             Match the desciption to the symbol
           </h1>
-          {whmisSymbolData.map((item, index) => (
-            <div
-              key={index}
-              className="mt-4 d-flex flex-column flex-lg-row flex-wrap gap-2 justify-content-between"
-            >
-              <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
-                <h6 className="mb-1 fw-bold">{item.title}</h6>
-                <p className="mb-0 small">{item.description}</p>
-              </div>
-              <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                <Image
-                  width={56}
-                  height={56}
-                  src={item.imgSrc}
-                  className="object-fit-contain"
-                  alt={item.imgAlt}
-                />
-              </div>
-            </div>
-          ))}
+          <CustomNodeFlow setWdata = {setWdata} />
         </div>
       </fieldset>
       <fieldset className="mt-5">
@@ -49,11 +29,11 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors }) => {
                   key={idx}
                   type="radio"
                   name={quiz.question}
-                  id={`${option}-${index}`} // Ensure each ID is unique
-                  label={option}
-                  value={option}
-                  checked={formData[quiz.question] === option}
-                  onChange={(e) => handleInputChange(e, quiz.question)}
+                  id={`${option.value}-${index}`} // Ensure each ID is unique
+                  label={option.label}
+                  value={option.value}
+                  // checked={formData[quiz.question] === option.label}
+                  onChange={(e) => handleInputChange(e, quiz.question, quiz.index)}
                   isInvalid={!!errors[quiz.question]}
                 />
               ))}
