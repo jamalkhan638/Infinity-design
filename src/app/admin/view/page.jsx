@@ -1,4 +1,5 @@
 "use client";
+import withAuth from "@/components/auth-provider";
 import MetaData from "@/components/seo/MetaData";
 import gmpQuestionsDataSelected from "@/data/gmpQuestionsDataSelected";
 import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
@@ -209,4 +210,4 @@ const ViewPage = () => {
   );
 };
 
-export default ViewPage;
+export default withAuth(ViewPage);

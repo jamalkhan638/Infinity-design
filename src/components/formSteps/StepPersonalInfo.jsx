@@ -1,6 +1,14 @@
 import React from "react";
-
-const StepPersonalInfo = ({ formData, handleInputChange }) => {
+import InputMask from "react-input-mask";
+const StepPersonalInfo = ({
+  formData,
+  handleInputChange,
+  emaileerror,
+  phoneNumberer,
+  sinError,
+  fnameErr,
+  lnameErr
+}) => {
   return (
     <fieldset>
       <div className="text-center pb-lg-3">
@@ -22,6 +30,7 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
             onChange={handleInputChange}
             required
           />
+  <p style={{ color: "red" }}>{fnameErr}</p>
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="lastName">
@@ -36,6 +45,7 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
             onChange={handleInputChange}
             required
           />
+            <p style={{ color: "red" }}>{lnameErr}</p>
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="dob">
@@ -49,21 +59,36 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
             value={formData.dob}
             onChange={handleInputChange}
             required
+            max="2999-12-31"
           />
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="phoneNumber">
             Phone Number:
           </label>
-          <input
+          {/* <input
             id="phoneNumber"
             name="phoneNumber"
-            type="tel"
+            type="number"
             className="form-control rounded-0"
             value={formData.phoneNumber}
             onChange={handleInputChange}
             required
+          /> */}
+
+          <InputMask
+           name="phoneNumber"
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+            className="form-control rounded-0"
+           
+            mask="999-999-9999"
+            // value={formData.phoneNumber}
+            defaultValue={formData.phoneNumber}
           />
+
+          <p style={{ color: "red" }}>{phoneNumberer}</p>
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="email">
@@ -78,12 +103,13 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
             onChange={handleInputChange}
             required
           />
+          <p style={{ color: "red" }}>{emaileerror}</p>
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="sin">
             SIN:
           </label>
-          <input
+          {/* <input
             id="sin"
             name="sin"
             type="text"
@@ -91,7 +117,19 @@ const StepPersonalInfo = ({ formData, handleInputChange }) => {
             value={formData.sin}
             onChange={handleInputChange}
             required
+          /> */}
+             <InputMask
+           
+            onChange={(e) => {
+              handleInputChange(e);
+            }}
+            className="form-control rounded-0"
+           name="sin"
+            mask="999-999-999"
+            // value={formData.sin}
+            defaultValue={formData.sin}
           />
+          <p style={{color: "red"}}>{sinError}</p>
         </div>
       </div>
     </fieldset>

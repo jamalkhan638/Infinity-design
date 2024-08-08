@@ -13296,6 +13296,7 @@ textarea.form-control-lg {
 .react-flow__node-input {
   min-width: 15rem;
   padding: 1rem;
+  height: 92px !important;
 }
 
 .react-flow__handle-left .source {

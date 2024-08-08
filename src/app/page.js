@@ -12,28 +12,7 @@ import StepThankyou from "@/components/formSteps/StepThankyou";
 import MetaData from "@/components/seo/MetaData";
 import { registerCandidate } from "./api/api";
 
-const validatePersonalInfo = (data) => {
-  const { firstName, lastName, dob, phoneNumber, email, sin } = data;
-  return firstName && lastName && dob && phoneNumber && email && sin;
-};
 
-const validateWhmisQuiz = (data) => {
-  console.log("dddddddddddd", data);
-  let valid = true;
-  const errors = {};
-  if (data?.whimis?.length < whmisQuizData?.length) {
-    valid = false;
-  }
-  // whmisQuizData.forEach((quiz) => {
-  //   if (!data[quiz.index]) {
-  //     valid = false;
-  //     errors[quiz.index] = "This question is required.";
-  //   }
-  // }
-  // );
-
-  return { valid, errors };
-};
 
 const validateGmpQuiz = (data) => {
   let valid = true;
@@ -52,6 +31,27 @@ const validateGmpQuiz = (data) => {
 };
 
 export default function Home() {
+  const validateWhmisQuiz = (data) => {
+    console.log("dddddddddddd", data, wdata);
+    let valid = true;
+    const errors = {};
+    
+    if (data?.whims?.length < whmisQuizData?.length) {
+      valid = false;
+    }
+    if(wdata?.length < 9){
+      valid = false;
+    }
+    // whmisQuizData.forEach((quiz) => {
+    //   if (!data[quiz.index]) {
+    //     valid = false;
+    //     errors[quiz.index] = "This question is required.";
+    //   }
+    // }
+    // );
+  
+    return { valid, errors };
+  };
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -65,9 +65,56 @@ export default function Home() {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [whimis, setWhimis] = useState([]);
-  const [wdata, setWdata] = useState();
+  const [wdata, setWdata] = useState([]);
   const [wcheck, setWcheck] = useState([]);
   const [gmp, setgmp] = useState([]);
+  const [emaileerror, setEmaillError] = useState();
+  const [phoneNumberer, setPhoneNumberError] = useState();
+  const [sinError, setSinError] = useState();
+  const [fnameErr, setFanmeErr] = useState();
+  const [lnameErr, setLnameErr] = useState();
+  const validatePersonalInfo = (data) => {
+    const { firstName, lastName, dob, phoneNumber, email, sin } = data;
+
+    if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin)) {
+      return;
+    }
+
+    return firstName && lastName && dob && phoneNumber && email && sin;
+  };
+
+  const handlValidate = (firstName, lastName, dob, phoneNumber, email, sin) => {
+    const actuallCode = phoneNumber
+    .replaceAll("_", "")
+    .replaceAll("-", "");
+
+  var strlengths = actuallCode.length;
+    let hasErrr = false;
+    if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      setEmaillError("Please enter valid email");
+      hasErrr = true;
+    }
+    if (!sin.match(/^(\d{3}-\d{3}-\d{3})|(\d{9})$/)) {
+      setSinError("Sin format is not valid");
+      hasErrr = true;
+    }
+
+    if (!firstName.match(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)) {
+      setFanmeErr("Only characters allowed");
+      hasErrr = true;
+    }
+    if (!lastName.match(/^([a-zA-Z]+\s)*[a-zA-Z]+$/)) {
+      setLnameErr("Only characters allowed");
+      hasErrr = true;
+    }
+
+    if (strlengths < 10) {
+      setPhoneNumberError("Must enter 10 numeric values");
+      hasErrr = true;
+    }
+    return hasErrr;
+  };
+
   const handleInputChangeWhimis = (e, question, index) => {
     const { name, value } = e.target;
     console.log("gg", name, value, index);
@@ -85,7 +132,13 @@ export default function Home() {
 
   console.log("wwwwwwwww", gmp);
   const handleInputChange = (e, question) => {
+    setEmaillError("");
+    setSinError("");
+    setFanmeErr("");
+    setLnameErr("");
     const { name, value } = e.target;
+    console.log("name", name, value);
+
     setFormData({
       ...formData,
       [question || name]: value,
@@ -94,7 +147,7 @@ export default function Home() {
   const handleNextStep = () => {
     // if(!formData.whimis){
     formData.whims = whimis;
-    
+
     // }
 
     if (currentStep === 1) {
@@ -114,7 +167,7 @@ export default function Home() {
         toast.error("Please answer all the questions.");
       }
     } else if (currentStep === 3) {
-      formData.gmp = gmp
+      formData.gmp = gmp;
       // Step 3: Validate GMP quiz
       const { valid, errors } = validateGmpQuiz(formData);
       if (valid) {
@@ -134,29 +187,26 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-      formData.whims = whimis;
-      formData.gmp = gmp
-      formData.signs_matching = wdata
-      console.log("Form submission triggered");
+
+    formData.whims = whimis;
+    formData.gmp = gmp;
+    formData.signs_matching = wdata;
+    console.log("Form submission triggered");
 
     const { valid, errors } = validateGmpQuiz(formData);
     console.log("Validation result:", { valid, errors });
     console.log("Form data:", formData);
-  
-
 
     if (valid) {
-      const res = await registerCandidate(formData)
-      if(res){
-        toast.info(res?.data?.data)
-      setCurrentStep(4); // Update currentStep to 4 upon successful validation
-      setSubmitted(true); // Set submitted to true after successful submission
-      console.log("Submission successful, moving to step 4");
-      toast.success("Thank you for your submission!");
+      const res = await registerCandidate(formData);
+      if (res) {
+        toast.info(res?.data?.data);
+        setCurrentStep(4); // Update currentStep to 4 upon successful validation
+        setSubmitted(true); // Set submitted to true after successful submission
+        console.log("Submission successful, moving to step 4");
+        toast.success("Thank you for your submission!");
       }
-
-    } else { 
+    } else {
       setErrors(errors);
       console.log("Validation failed, errors:", errors);
       toast.error("Please answer all the questions.");
@@ -173,6 +223,12 @@ export default function Home() {
           <StepPersonalInfo
             formData={formData}
             handleInputChange={handleInputChange}
+            emaileerror={emaileerror}
+            phoneNumberer={phoneNumberer}
+            sinError={sinError}
+            fnameErr={fnameErr}
+            lnameErr={lnameErr}
+           
           />
         );
       case 2:

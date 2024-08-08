@@ -14,8 +14,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Environment</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Environment</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (May cause damage to the aquatic environment)
           </p>
         </>
@@ -31,8 +31,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Skull and Crossbones</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Skull and Crossbones</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (Can cause death or toxicity with short exposure to small amounts)
           </p>
         </>
@@ -48,8 +48,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Exclamation Mark</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Exclamation Mark</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (May cause less serious health effects or damages the ozone layer)
           </p>
         </>
@@ -65,8 +65,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Corrosion</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Corrosion</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (For corrosive damage to metals as well as skin, eyes)
           </p>
         </>
@@ -82,8 +82,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Flame</h6>
-          <p className="mb-0 small-text-1">(For fire hazard)</p>
+          <h6 className="mb-1 fw-bold fs-8">Flame</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For fire hazard)</p>
         </>
       ),
     },
@@ -97,8 +97,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Exploding Bomb</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Exploding Bomb</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (For explosion or reactivity hazard)
           </p>
         </>
@@ -114,8 +114,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Flame over Circle</h6>
-          <p className="mb-0 small-text-1">(For oxidizing hazard)</p>
+          <h6 className="mb-1 fw-bold fs-8">Flame over Circle</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For oxidizing hazard)</p>
         </>
       ),
     },
@@ -129,8 +129,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Cylinder Gas</h6>
-          <p className="mb-0 small-text-1">(For gases under pressure)</p>
+          <h6 className="mb-1 fw-bold fs-8">Cylinder Gas</h6>
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For gases under pressure)</p>
         </>
       ),
     },
@@ -144,8 +144,8 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">Health Hazard</h6>
-          <p className="mb-0 small-text-1">
+          <h6 className="mb-1 fw-bold fs-8">Health Hazard</h6>
+          <p  style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (May cause or suspect of causing serious health effects)
           </p>
         </>
@@ -164,7 +164,7 @@ const initialNodes = [
           <h6 className="mb-1 fw-bold fs-7">
             Bio-hazardous Infectious Materials
           </h6>
-          <p className="mb-0 small-text-1">
+          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
             (For organisms or toxins that can cause disease in people or
             animals)
           </p>
@@ -180,7 +180,10 @@ const initialNodes = [
     type: "custom",
     data: {
       label: "/assets/images/m-icon-1.png",
+   
     },
+
+  
     position: { x: 400, y: 0 },
     draggable: false,
   },
@@ -296,9 +299,17 @@ const CustomNodeFlow = ({setWdata}) => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
-      preventScrolling
+      
       className="touchdevice-flow"
       fitView
+      panOnDrag= {false}
+      // panOnScroll= {true}
+      zoomOnScroll= {false}
+      preventScrolling = {false}
+      zoomOnPinch = {false}
+      // zoomOnScroll={false}
+      panOnScroll={false}
+      // preventScrolling={false}
     />
   );
 };

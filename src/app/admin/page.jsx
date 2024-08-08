@@ -1,4 +1,6 @@
 "use client";
+
+import withAuth from "@/components/auth-provider";
 import SearchIcon from "@/components/icons/SearchIcon";
 import MetaData from "@/components/seo/MetaData";
 import LogoBanner from "@/components/ui/LogoBanner";
@@ -221,4 +223,4 @@ const AdminDashboardPage = () => {
   );
 };
 
-export default AdminDashboardPage;
+export default withAuth(AdminDashboardPage);

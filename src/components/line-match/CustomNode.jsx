@@ -9,8 +9,8 @@ const CustomNode = ({ data }) => {
       <CustomHandle type="target" position={Position.Left} isConnectable={1} />
       <div>
         <Image
-          width={30}
-          height={30}
+          width={70}
+          height={70}
           src={data.label}
           className="object-fit-contain"
           alt="symbol-icon"

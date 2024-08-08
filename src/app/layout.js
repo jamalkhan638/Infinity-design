@@ -12,7 +12,7 @@ const poppins = Poppins({
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const hideHeaderFooter = pathname === "/admin" || pathname === "/admin/view";
+  const hideHeaderFooter = pathname === "/admin" || pathname === "/admin/view" || pathname === "/login";
 
   return (
     <html lang="en">
