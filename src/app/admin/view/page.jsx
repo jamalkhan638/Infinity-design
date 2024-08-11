@@ -25,10 +25,10 @@ const ViewPage = () => {
     setData(res?.data?.data);
     let data = res?.data?.data;
     whmisQuizDataSelected?.forEach((item, index) => {
-      const values = Object.values(data?.whimp_qgmp_quizuizzArray[0]);
+      const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
 
-      let newValue = values.shift();
-      let mm = values.pop();
+      let newValue = values && values.shift();
+      let mm = values && values.pop();
       // console.log("mmm", values)
       values?.forEach((item1, key) => {
         if (item1?.includes(index + 1)) {
@@ -301,7 +301,7 @@ const ViewPage = () => {
               <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
                 WHMIS Quiz
               </h1>
-              {whmisQuizDataSelected.map((quiz, index) => (
+              {whmisQuizDataSelected?.map((quiz, index) => (
                 <figure key={index} className="mt-4">
                   <h6 className="mb-3 fw-bold">{quiz.question}</h6>
                   <div className="row row-cols-1 row-cols-md-2 gy-1 px-2">
