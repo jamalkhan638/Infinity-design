@@ -13321,6 +13321,14 @@ textarea.form-control-lg {
 .touchdevice-flow .react-flow__handle.connecting {
   animation: bounce 1600ms infinite ease-out;
 }
+.logoutbtn{
+  float: right;
+    color: white;
+    text-decoration: underline;
+    margin-top: -1rem;
+    margin-right: 1rem;
+    cursor: pointer
+}
 
 @keyframes bounce {
   0% {
