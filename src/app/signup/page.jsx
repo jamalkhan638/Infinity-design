@@ -4,30 +4,41 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import { userLogin } from "../api/api";
-import { toast, ToastContainer } from "react-toastify";
+import { signup } from "../api/api";
 
-export default function login() {
-  const [email, setEmail] = useState();
-  const [password, setPassowrd] = useState();
+export default function SignUp() {
+  const [userName, setUserName] = useState();
+  const [passowrd, setPassowrd] = useState();
   const router = useRouter();
   const [error, setError] = useState({
-    username: "",
+    email: "",
     password: "",
+    firstName: "",
+    lastName: "",
   });
-  const handleuserName = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassowrd(e.target.value);
+  const [state, setState] = useState({
+    email: "",
+    password: "",
+    firstName: "",
+    lastName: "",
+  });
+
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
   };
   const handleValidate = () => {
     let hasError = false;
-    if (!email) {
+    if (!state.email) {
       setError({ ...error, email: "Please enter email" });
       hasError = true;
-    } else if (!password) {
+    } else if (!state.password) {
       setError({ ...error, password: "Please enter password" });
+      hasError = true;
+    } else if (!state.firstName) {
+      setError({ ...error, firstName: "Please enter first name" });
+      hasError = true;
+    } else if (!state.lastName) {
+      setError({ ...error, lastName: "Please enter last name" });
       hasError = true;
     }
     return hasError;
@@ -35,17 +46,18 @@ export default function login() {
 
   const handleSubmit = async () => {
     let data = {
-      email: email,
-      password: password,
+      email: state.email,
+      password: state.password,
+      firstName: state.firstName,
+      lastName: state.lastName,
     };
+    console.log("data", data);
     if (handleValidate()) {
       return;
     }
-    const res = await userLogin(data);
 
-    if (res?.response?.data?.message) {
-      toast.error(res?.response?.data?.message);
-    }
+    const res = await signup(data);
+
     if (res?.data?.token) {
       localStorage.setItem("userToken", res?.data?.token);
       router.replace("/admin");
@@ -54,7 +66,6 @@ export default function login() {
   return (
     <div>
       <main>
-        <ToastContainer />
         <LogoBanner />
         <section className="py-5 position-relative">
           <span className="position-absolute top-0 end-0">
@@ -69,29 +80,55 @@ export default function login() {
           <Container fluid="xxl" className="position-relative">
             <div className="text-center pb-lg-3">
               <h1 className="text-capitalize mb-5 display-5 fw-bold text-black text-line">
-                Lets SIGN IN...
+                Lets SIGN UP...
               </h1>
             </div>
             <div style={{ marginLeft: "35%" }}>
-              <div className="row row-cols-1 row-cols-md-2">
+              <div className="row row-cols-1 row-cols-md-2 mt-3">
                 <div className="col">
                   <input
                     type="text"
-                    name="email"
-                    onChange={handleuserName}
+                    name="firstName"
+                    onChange={handleChange}
                     id="name"
-                    placeholder="Email"
+                    placeholder="First Name"
                     className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
                   />
                 </div>
               </div>
-              <p style={{ color: "red" }}>{error?.username}</p>
+              <p style={{ color: "red" }}>{error?.firstName}</p>
+              <div className="row row-cols-1 row-cols-md-2 mt-3">
+                <div className="col">
+                  <input
+                    type="text"
+                    name="lastName"
+                    onChange={handleChange}
+                    id="name"
+                    placeholder="Last Name"
+                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                  />
+                </div>
+              </div>
+              <p style={{ color: "red" }}>{error?.lastName}</p>
+              <div className="row row-cols-1 row-cols-md-2 mt-3">
+                <div className="col">
+                  <input
+                    type="text"
+                    name="email"
+                    onChange={handleChange}
+                    id="name"
+                    placeholder="email"
+                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                  />
+                </div>
+              </div>
+              <p style={{ color: "red" }}>{error?.email}</p>
               <div className="row row-cols-1 row-cols-md-2  mt-4">
                 <div className="col">
                   <input
                     type="password"
                     name="password"
-                    onChange={handlePassword}
+                    onChange={handleChange}
                     id="name"
                     placeholder="Password"
                     className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
@@ -114,15 +151,15 @@ export default function login() {
                 style={{ marginLeft: "45%", marginTop: "-2rem" }}
                 className="d-flex"
               >
-                <p className="text-primary">Didn't have account </p>
+                <p className="text-primary">Already have account </p>
                 <p
                   onClick={() => {
-                    router.push("/signup");
+                    router.push("/login");
                   }}
                   style={{ textDecoration: "underline", cursor: "pointer" }}
                   className="text-primary ms-2"
                 >
-                  Signup{" "}
+                  Signin{" "}
                 </p>
               </div>
             </div>

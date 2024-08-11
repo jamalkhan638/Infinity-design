@@ -6,85 +6,66 @@ import MetaData from "@/components/seo/MetaData";
 import LogoBanner from "@/components/ui/LogoBanner";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Container, Pagination, Table } from "react-bootstrap";
+import { getAllCandidates, getCandidateData, getWorkerFileteredData } from "../api/api";
+
+import ReactToPrint from "react-to-print";
+import { CandidateFile } from "@/components/Pdf/CandidateFile";
+import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
+import { toast, ToastContainer } from "react-toastify";
 
 const AdminDashboardPage = () => {
-  // Define the employee data array
-  const employeeData = [
-    {
-      first_name: "Ajay",
-      last_name: "Kumar",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "Ajay",
-      last_name: "Kumar",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    {
-      first_name: "testing",
-      last_name: "One",
-      email: "testingOne@gmail.com",
-      phone_number: "647-789-9875",
-      sin: "213123",
-    },
-    // Add more employees as needed
-  ];
+  const [data, setData] = useState();
+  const [data1, setData1] = useState();
+  const [gmpselecetd, setGMPSelected] = useState()
+  const [whimisselecetd, setWhimisSelected] = useState()
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    sin: null,
+    phone: null,
+  });
+  useEffect(() => {
+    handleGetAllCandidatesData();
+  }, []);
 
+  const handleGetAllCandidatesData = async () => {
+    const res = await getAllCandidates();
+    setData(res?.data?.data);
+  };
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async () => {
+    let data = {
+      phone: state.phone,
+      email: state.email,
+      name: state.name,
+      sin: state.sin,
+    };
+
+    const res = await getWorkerFileteredData(data);
+    if(res?.data?.records?.responseData?.data){
+      setData(res?.data?.records?.responseData?.data);
+    }
+    else{
+      toast.error(res?.data?.records?.responseData)
+    }
+   
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5; // Number of records per page
+  const totalPages = Math.ceil(data?.length / recordsPerPage);
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+  // Slice the data to get the records for the current page
+  const currentRecords = data?.slice(indexOfFirstRecord, indexOfLastRecord);
+  const componentRef = useRef();
+
+ 
   return (
     <>
       <MetaData
@@ -93,6 +74,7 @@ const AdminDashboardPage = () => {
         keywords="employment, job"
       />
       <main>
+      <ToastContainer />
         <LogoBanner />
         <section className="py-5 position-relative">
           <span className="position-absolute top-0 end-0">
@@ -107,7 +89,7 @@ const AdminDashboardPage = () => {
             <h1 className="text-center text-capitalize mb-5 display-5 fw-bold text-black">
               ADMIN <span className="text-line text-line lh-lg">DASHBOARD</span>
             </h1>
-            <div className="mb-5 position-relative mx-auto max-w-600">
+            {/* <div className="mb-5 position-relative mx-auto max-w-600">
               <input
                 type="search"
                 name="table-search"
@@ -118,61 +100,66 @@ const AdminDashboardPage = () => {
               <span className="position-absolute top-0 end-0 py-3 pe-3">
                 <SearchIcon />
               </span>
+            </div> */}
+
+            <div className="row row-cols-1 row-cols-md-2 gy-4">
+              <div className="col">
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  onChange={handleChange}
+                  placeholder="Name"
+                  className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  name="phone"
+                  onChange={handleChange}
+                  id="phone"
+                  placeholder="Phone"
+                  className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  name="sin"
+                  onChange={handleChange}
+                  id="sin"
+                  placeholder="SIN"
+                  className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                />
+              </div>
+              <div className="col">
+                <input
+                  type="text"
+                  onChange={handleChange}
+                  name="email"
+                  id="email"
+                  placeholder="Email"
+                  className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
+                />
+              </div>
             </div>
-            <form className="mb-5">
-              <div className="row row-cols-1 row-cols-md-2 gy-4">
-                <div className="col">
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Name"
-                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
-                  />
-                </div>
-                <div className="col">
-                  <input
-                    type="text"
-                    name="phone_number"
-                    id="phone_number"
-                    placeholder="Phone"
-                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
-                  />
-                </div>
-                <div className="col">
-                  <input
-                    type="text"
-                    name="sin"
-                    id="sin"
-                    placeholder="SIN"
-                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
-                  />
-                </div>
-                <div className="col">
-                  <input
-                    type="text"
-                    name="keywords"
-                    id="keywords"
-                    placeholder="Keywords"
-                    className="form-control form-control-lg rounded-0 border-dark border-opacity-50"
-                  />
-                </div>
-              </div>
-              <div className="col w-100 mt-4 mt-xl-5 text-center">
-                <button
-                  className="btn btn-lg btn-outline-primary rounded-0"
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
+            <div className="col w-100 mt-4 mt-xl-5 text-center">
+              <button
+                onClick={handleSubmit}
+                className="btn btn-lg btn-outline-primary rounded-0"
+                // type="submit"
+              >
+                Submit
+              </button>
+            </div>
+
             <Table
               responsive
               striped
               bordered
               hover
-              className="text-center text-nowrap"
+              className="text-center text-nowrap mt-4"
             >
               <thead className="fs-5">
                 <tr>
@@ -184,37 +171,72 @@ const AdminDashboardPage = () => {
                 </tr>
               </thead>
               <tbody>
-                {employeeData.map((employee, index) => (
+                {currentRecords?.map((employee, index) => (
                   <tr key={index}>
                     <td className="text-capitalize">
-                      {employee.first_name} {employee.last_name}
+                      {employee.firstName} {employee.lastName}
                     </td>
                     {/* <td>{employee.email}</td> */}
-                    <td>{employee.phone_number}</td>
+                    <td>{employee.phoneNumber}</td>
                     <td>{employee.sin}</td>
                     <td>
                       <div className="d-flex justify-content-center gap-1">
-                        <Link href="/admin/view">View</Link>
+                        <Link href={`/admin/view?id=${employee?.id}`}>
+                          View
+                        </Link>
                         <span className="text-primary">|</span>
-                        <a href="/admin/view" download>
-                          Download
-                        </a>
+                        <div>
+                        
+
+                          
+                        <ReactToPrint
+                          trigger={() => (
+                            <span 
+                            style={{textDecoration: "underline", cursor: "pointer"}}
+                            className="text-primary"
+                              href="!#"
+                              onClick={(e)=>{e.preventDefault()}}>
+                              Download
+                            </span>
+                          )}
+                          content={() => componentRef.current}
+                        />
+
+                        </div>
+                        
                       </div>
                     </td>
+                    {
+            
+
+              <div style={{ display: "none" }}>
+                <CandidateFile data = {data1} whmisQuizDataSelected = {whimisselecetd} gmpselecetd = {gmpselecetd}  ref={componentRef} id = {employee?.id} />
+              </div>
+            
+            }
                   </tr>
                 ))}
               </tbody>
             </Table>
+      
             <Pagination className="justify-content-center">
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Item active>{1}</Pagination.Item>
-              <Pagination.Item>{2}</Pagination.Item>
-              <Pagination.Item disabled>{3}</Pagination.Item>
+              {/* <Pagination.First /> */}
+              <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
+              <Pagination.Item active>
+                Page {currentPage} of {totalPages}
+              </Pagination.Item>
+              {/* <Pagination.Item>{2}</Pagination.Item>
+              <Pagination.Item disabled>{3}</Pagination.Item> */}
               <Pagination.Ellipsis />
-              <Pagination.Item>{10}</Pagination.Item>
-              <Pagination.Next />
-              <Pagination.Last />
+              {/* <Pagination.Item>{totalPages}</Pagination.Item> */}
+              <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              />
+              {/* <Pagination.Last /> */}
             </Pagination>
           </Container>
         </section>
