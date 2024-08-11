@@ -1,5 +1,6 @@
 import { getCandidateData } from "@/app/api/api";
 import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
+import whmisSymbolData from "@/data/whmisSymbolData";
 import React, { Component } from "react";
 import { Container, Form } from "react-bootstrap";
 
@@ -159,6 +160,10 @@ export class CandidateFile extends Component {
     ];
 
     this.setState({ gmpselecetd: gmpQuestionsDataSelected });
+
+    whmisSymbolData?.forEach((item, index)=>{
+      item.ans = this.state.data?.signs_matchingArray?.length > 0 && this.state.data?.signs_matchingArray[index]?.is_correct
+    })
   }
 
   render() {
@@ -263,12 +268,12 @@ export class CandidateFile extends Component {
           </section>
           <section className="py-5">
             <Container fluid="xxl" className="border-top border-3 border-black">
-              {/* <fieldset className="pt-5">
+              <fieldset className="pt-5">
               <div className="text-center pb-lg-3">
                 <h2 className="mb-5 text-capitalize fw-bold text-black">
                   Match the desciption to the symbol
                 </h2>
-                {whmisSymbolData.map((item, index) => (
+                {whmisSymbolData?.map((item, index) => (
                   <div key={index}>
                     <div className="mt-4 d-flex justify-content-between position-relative">
                       <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
@@ -279,19 +284,25 @@ export class CandidateFile extends Component {
                         <span className="line-primary" />
                       </span>
                       <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                        <Image
+                        {/* <Image
                           width={56}
                           height={56}
                           src={item.imgSrc}
                           className="object-fit-contain"
                           alt={item.imgAlt}
-                        />
+                        /> */}
+                         {
+                        item?.ans ?
+                        <p style={{color: "green"}}>Correct</p>
+                        :
+                        <p style={{color: "red"}}>Wrong</p>
+                        }
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </fieldset> */}
+            </fieldset>
               <fieldset className="mt-5">
                 <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
                   WHMIS Quiz

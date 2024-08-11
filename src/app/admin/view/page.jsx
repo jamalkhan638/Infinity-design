@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { useSearchParams } from "next/navigation";
 import { getCandidateData } from "@/app/api/api";
+import whmisSymbolData from "@/data/whmisSymbolData";
 
 const ViewPage = () => {
   const searchParams = useSearchParams();
@@ -22,26 +23,26 @@ const ViewPage = () => {
     const res = await getCandidateData(id);
     setData(res?.data?.data);
     let data = res?.data?.data;
-    // whmisQuizDataSelected?.forEach((item, index) => {
-    //   const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
+    whmisQuizDataSelected?.forEach((item, index) => {
+      const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
 
-    //   let newValue = values && values.shift();
-    //   let mm = values && values.pop();
-    //   // console.log("mmm", values)
-    //   values?.forEach((item1, key) => {
-    //     if (item1?.includes(index + 1)) {
-    //       if (item1.includes("a")) {
-    //         item.selectedOption = item.options[0];
-    //       } else if (item1.includes("b")) {
-    //         item.selectedOption = item.options[1];
-    //       } else if (item1.includes("c")) {
-    //         item.selectedOption = item.options[2];
-    //       } else if (item1.includes("d")) {
-    //         item.selectedOption = item.options[3];
-    //       }
-    //     }
-    //   });
-    // });
+      let newValue = values && values.shift();
+      let mm = values && values.pop();
+      // console.log("mmm", values)
+      values?.forEach((item1, key) => {
+        if (item1?.includes(index + 1)) {
+          if (item1.includes("a")) {
+            item.selectedOption = item.options[0];
+          } else if (item1.includes("b")) {
+            item.selectedOption = item.options[1];
+          } else if (item1.includes("c")) {
+            item.selectedOption = item.options[2];
+          } else if (item1.includes("d")) {
+            item.selectedOption = item.options[3];
+          }
+        }
+      });
+    });
 
     const gmpQuestionsDataSelected = [
       {
@@ -160,6 +161,13 @@ const ViewPage = () => {
     ];
 
     setGMPSelected(gmpQuestionsDataSelected);
+
+    whmisSymbolData?.forEach((item, index)=>{
+      item.ans = data?.signs_matchingArray[index]?.is_correct
+    })
+
+    console.log("whmisSymbolData", whmisSymbolData)
+
   };
 
   return (
@@ -266,12 +274,12 @@ const ViewPage = () => {
         </section>
         <section className="py-5">
           <Container fluid="xxl" className="border-top border-3 border-black">
-            {/* <fieldset className="pt-5">
+            <fieldset className="pt-5">
               <div className="text-center pb-lg-3">
                 <h2 className="mb-5 text-capitalize fw-bold text-black">
                   Match the desciption to the symbol
                 </h2>
-                {whmisSymbolData.map((item, index) => (
+                {whmisSymbolData?.map((item, index) => (
                   <div key={index}>
                     <div className="mt-4 d-flex justify-content-between position-relative">
                       <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
@@ -282,19 +290,25 @@ const ViewPage = () => {
                         <span className="line-primary" />
                       </span>
                       <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                        <Image
+                        {
+                        item?.ans ?
+                        <p style={{color: "green"}}>Correct</p>
+                        :
+                        <p style={{color: "red"}}>Wrong</p>
+                        }
+                        {/* <img
                           width={56}
                           height={56}
                           src={item.imgSrc}
                           className="object-fit-contain"
                           alt={item.imgAlt}
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </fieldset> */}
+            </fieldset>
             <fieldset className="mt-5">
               <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
                 WHMIS Quiz
