@@ -3,8 +3,6 @@ import withAuth from "@/components/auth-provider";
 import MetaData from "@/components/seo/MetaData";
 
 import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
-import whmisSymbolData from "@/data/whmisSymbolData";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
@@ -24,26 +22,26 @@ const ViewPage = () => {
     const res = await getCandidateData(id);
     setData(res?.data?.data);
     let data = res?.data?.data;
-    whmisQuizDataSelected?.forEach((item, index) => {
-      const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
+    // whmisQuizDataSelected?.forEach((item, index) => {
+    //   const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
 
-      let newValue = values && values.shift();
-      let mm = values && values.pop();
-      // console.log("mmm", values)
-      values?.forEach((item1, key) => {
-        if (item1?.includes(index + 1)) {
-          if (item1.includes("a")) {
-            item.selectedOption = item.options[0];
-          } else if (item1.includes("b")) {
-            item.selectedOption = item.options[1];
-          } else if (item1.includes("c")) {
-            item.selectedOption = item.options[2];
-          } else if (item1.includes("d")) {
-            item.selectedOption = item.options[3];
-          }
-        }
-      });
-    });
+    //   let newValue = values && values.shift();
+    //   let mm = values && values.pop();
+    //   // console.log("mmm", values)
+    //   values?.forEach((item1, key) => {
+    //     if (item1?.includes(index + 1)) {
+    //       if (item1.includes("a")) {
+    //         item.selectedOption = item.options[0];
+    //       } else if (item1.includes("b")) {
+    //         item.selectedOption = item.options[1];
+    //       } else if (item1.includes("c")) {
+    //         item.selectedOption = item.options[2];
+    //       } else if (item1.includes("d")) {
+    //         item.selectedOption = item.options[3];
+    //       }
+    //     }
+    //   });
+    // });
 
     const gmpQuestionsDataSelected = [
       {
