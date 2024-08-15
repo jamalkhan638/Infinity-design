@@ -24,7 +24,9 @@ const ViewPage = () => {
     setData(res?.data?.data);
     let data = res?.data?.data;
     whmisQuizDataSelected?.forEach((item, index) => {
-      const values = data?.whimp_qgmp_quizuizzArray?.length > 0 && Object.values(data?.whimp_qgmp_quizuizzArray[0]);
+      const values =
+        data?.whimp_qgmp_quizuizzArray?.length > 0 &&
+        Object.values(data?.whimp_qgmp_quizuizzArray[0]);
 
       let newValue = values && values.shift();
       let mm = values && values.pop();
@@ -162,12 +164,11 @@ const ViewPage = () => {
 
     setGMPSelected(gmpQuestionsDataSelected);
 
-    whmisSymbolData?.forEach((item, index)=>{
-      item.ans = data?.signs_matchingArray[index]?.is_correct
-    })
+    whmisSymbolData?.forEach((item, index) => {
+      item.ans = data?.signs_matchingArray[index]?.is_correct;
+    });
 
-    console.log("whmisSymbolData", whmisSymbolData)
-
+    console.log("whmisSymbolData", whmisSymbolData);
   };
 
   return (
@@ -212,7 +213,6 @@ const ViewPage = () => {
                 <h6 className="mb-0 fw-semibold">Date it Birth:</h6>
                 <p className="mb-0 text-truncate">{data?.dob}</p>
               </div>
-
               <div className="col">
                 <h6 className="mb-0 fw-semibold">Phone Number:</h6>
                 <p className="mb-0 text-truncate">{data?.phoneNumber}</p>
@@ -258,11 +258,11 @@ const ViewPage = () => {
               {data?.whimis_result < 16 || data?.gmp_result < 18 ? (
                 <>
                   <p className="mb-3 fw-medium">
-                    Unfortumately you couldn't pass the test, Please click
-                    retake button to attempt again.
+                    Unfortunately this candidate did not pass the exam, Please
+                    click retake button to attempt again.
                   </p>
                   <Link
-                    href="/"
+                    href="/?retake=true"
                     className="btn btn-lg btn-primary px-4 rounded-pill text-white"
                   >
                     Retake Quiz
@@ -290,12 +290,11 @@ const ViewPage = () => {
                         <span className="line-primary" />
                       </span>
                       <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                        {
-                        item?.ans ?
-                        <p style={{color: "green"}}>Correct</p>
-                        :
-                        <p style={{color: "red"}}>Wrong</p>
-                        }
+                        {item?.ans ? (
+                          <p style={{ color: "green" }}>Correct</p>
+                        ) : (
+                          <p style={{ color: "red" }}>Wrong</p>
+                        )}
                         {/* <img
                           width={56}
                           height={56}

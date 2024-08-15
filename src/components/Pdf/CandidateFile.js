@@ -169,8 +169,8 @@ export class CandidateFile extends Component {
   render() {
     return (
       <div>
-        <main>
-          <section className="py-5">
+        <main style={{padding: "30px"}}>
+          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey", borderTop: "0.5px solid lightgrey"}} className="py-5">
             <Container fluid="xxl">
               <h1 className="fw-bold text-center text-capitalize mb-5">
                 personal information
@@ -266,7 +266,7 @@ export class CandidateFile extends Component {
               </div>
             </Container>
           </section>
-          <section className="py-5">
+          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey"}} className="py-5">
             <Container fluid="xxl" className="border-top border-3 border-black">
               <fieldset className="pt-5">
               <div className="text-center pb-lg-3">
@@ -310,7 +310,7 @@ export class CandidateFile extends Component {
                 {this.state.whmisselected?.map((quiz, index) => (
                   <figure key={index} className="mt-4">
                     <h6 className="mb-3 fw-bold">{quiz.question}</h6>
-                    <div className="row row-cols-1 row-cols-md-2 gy-1 px-2">
+                    <div className="row page-break row-cols-1 row-cols-md-2 gy-1 px-2">
                       {quiz.options.map((option, idx) => (
                         <Form.Check
                           key={idx}
@@ -332,7 +332,7 @@ export class CandidateFile extends Component {
               </fieldset>
             </Container>
           </section>
-          <section className="py-5">
+          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey", borderBottom: "0.5px solid lightgrey"}} className="py-5">
             <Container fluid="xxl" className="border-top border-3 border-black">
               <fieldset className="pt-5">
                 <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">

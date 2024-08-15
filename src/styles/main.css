@@ -13329,7 +13329,32 @@ textarea.form-control-lg {
     margin-right: 1rem;
     cursor: pointer
 }
+@media all {
+  .page-break {
+    display: none;
+  }
+}
 
+@media print {
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+@media print {
+  .page-break {
+    margin-top: 1rem;
+    display: block;
+    page-break-before: auto;
+  }
+}
+
+@page {
+  size: auto;
+  margin: 20mm;
+}
 @keyframes bounce {
   0% {
     transform: translate(0, -50%) scale(1);
