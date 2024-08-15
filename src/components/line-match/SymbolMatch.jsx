@@ -73,7 +73,9 @@ const SymbolMatch = () => {
   ]);
 
   const moveItem = (fromIndex, toIndex) => {
+    console.log("gg", fromIndex, fromIndex)
     const updatedItems = [...whmisSymbolDataRight];
+
     const [movedItem] = updatedItems.splice(fromIndex, 1);
     updatedItems.splice(toIndex, 0, movedItem);
     setWhmisSymbolDataRight(updatedItems);

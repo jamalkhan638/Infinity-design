@@ -14,7 +14,7 @@ export const registerCandidate = async (data) => {
         
     try {
       const res = await axios.post(
-        `${config.api_url}candidate/register`,
+        `${config.api_url}candidate/register?is_retake=${data.is_retake}&id=${data?.id ? data?.id : 0}`,
         data,
         headers
       );

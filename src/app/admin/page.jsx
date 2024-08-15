@@ -58,7 +58,7 @@ const AdminDashboardPage = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5; // Number of records per page
+  const recordsPerPage = 10; // Number of records per page
   const totalPages = Math.ceil(data?.length / recordsPerPage);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -187,20 +187,22 @@ const AdminDashboardPage = () => {
                         </Link>
                         <span className="text-primary">|</span>
                         <div>
-                          <ReactToPrint
-                            trigger={() => (
-                              <button
-                                type="button"
-                                className="btn btn-primary btn-sm"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                }}
-                              >
-                                Download
-                              </button>
-                            )}
-                            content={() => componentRef.current}
-                          />
+                        
+
+                          
+                        <ReactToPrint
+                          trigger={() => (
+                            <span 
+                            style={{textDecoration: "underline", cursor: "pointer"}}
+                            className="text-primary"
+                              href="!#"
+                              onClick={(e)=>{e.preventDefault()}}>
+                              Download
+                            </span>
+                          )}
+                          content={() => componentRef.current}
+                        />
+
                         </div>
                       </div>
                     </td>
