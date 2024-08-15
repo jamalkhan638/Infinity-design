@@ -14,14 +14,12 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Environment</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
-            (May cause damage to the aquatic environment)
-          </p>
+          <h5 className="mb-1 fw-bold">Environment</h5>
+          <p className="mb-0">(May cause damage to the aquatic environment)</p>
         </>
       ),
     },
-    position: { x: 50, y: 0 },
+    position: { x: 500, y: 0 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -31,14 +29,14 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Skull and Crossbones</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
+          <h5 className="mb-1 fw-bold">Skull and Crossbones</h5>
+          <p className="mb-0">
             (Can cause death or toxicity with short exposure to small amounts)
           </p>
         </>
       ),
     },
-    position: { x: 50, y: 100 },
+    position: { x: 500, y: 100 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -48,14 +46,14 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Exclamation Mark</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
+          <h5 className="mb-1 fw-bold">Exclamation Mark</h5>
+          <p className="mb-0">
             (May cause less serious health effects or damages the ozone layer)
           </p>
         </>
       ),
     },
-    position: { x: 50, y: 200 },
+    position: { x: 500, y: 200 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -65,14 +63,14 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Corrosion</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
+          <h5 className="mb-1 fw-bold">Corrosion</h5>
+          <p className="mb-0">
             (For corrosive damage to metals as well as skin, eyes)
           </p>
         </>
       ),
     },
-    position: { x: 50, y: 300 },
+    position: { x: 500, y: 300 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -82,12 +80,12 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Flame</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For fire hazard)</p>
+          <h5 className="mb-1 fw-bold">Flame</h5>
+          <p className="mb-0">(For fire hazard)</p>
         </>
       ),
     },
-    position: { x: 50, y: 400 },
+    position: { x: 500, y: 400 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -97,14 +95,12 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Exploding Bomb</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
-            (For explosion or reactivity hazard)
-          </p>
+          <h5 className="mb-1 fw-bold">Exploding Bomb</h5>
+          <p className="mb-0">(For explosion or reactivity hazard)</p>
         </>
       ),
     },
-    position: { x: 50, y: 500 },
+    position: { x: 500, y: 500 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -114,12 +110,12 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Flame over Circle</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For oxidizing hazard)</p>
+          <h5 className="mb-1 fw-bold">Flame over Circle</h5>
+          <p className="mb-0">(For oxidizing hazard)</p>
         </>
       ),
     },
-    position: { x: 50, y: 600 },
+    position: { x: 500, y: 600 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -129,12 +125,12 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Cylinder Gas</h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">(For gases under pressure)</p>
+          <h5 className="mb-1 fw-bold">Cylinder Gas</h5>
+          <p className="mb-0">(For gases under pressure)</p>
         </>
       ),
     },
-    position: { x: 50, y: 700 },
+    position: { x: 500, y: 700 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -144,14 +140,14 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-8">Health Hazard</h6>
-          <p  style={{fontSize: "9px"}} className="mb-0 small-text-1">
+          <h5 className="mb-1 fw-bold">Health Hazard</h5>
+          <p className="mb-0">
             (May cause or suspect of causing serious health effects)
           </p>
         </>
       ),
     },
-    position: { x: 50, y: 800 },
+    position: { x: 500, y: 800 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -161,17 +157,15 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold fs-7">
-            Bio-hazardous Infectious Materials
-          </h6>
-          <p style={{fontSize: "9px"}} className="mb-0 small-text-1">
+          <h5 className="mb-1 fw-bold">Bio-hazardous Infectious Materials</h5>
+          <p className="mb-0">
             (For organisms or toxins that can cause disease in people or
             animals)
           </p>
         </>
       ),
     },
-    position: { x: 50, y: 900 },
+    position: { x: 500, y: 900 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -180,11 +174,9 @@ const initialNodes = [
     type: "custom",
     data: {
       label: "/assets/images/m-icon-1.png",
-   
     },
 
-  
-    position: { x: 400, y: 0 },
+    position: { x: 1000, y: 0 },
     draggable: false,
   },
   {
@@ -193,7 +185,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-2.png",
     },
-    position: { x: 400, y: 100 },
+    position: { x: 1000, y: 100 },
     draggable: false,
   },
   {
@@ -202,7 +194,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-3.png",
     },
-    position: { x: 400, y: 200 },
+    position: { x: 1000, y: 200 },
     draggable: false,
   },
   {
@@ -211,7 +203,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-4.png",
     },
-    position: { x: 400, y: 300 },
+    position: { x: 1000, y: 300 },
     draggable: false,
   },
   {
@@ -220,7 +212,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-5.png",
     },
-    position: { x: 400, y: 400 },
+    position: { x: 1000, y: 400 },
     draggable: false,
   },
   {
@@ -229,7 +221,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-6.png",
     },
-    position: { x: 400, y: 500 },
+    position: { x: 1000, y: 500 },
     draggable: false,
   },
   {
@@ -238,7 +230,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-7.png",
     },
-    position: { x: 400, y: 600 },
+    position: { x: 1000, y: 600 },
     draggable: false,
   },
   {
@@ -247,7 +239,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-8.png",
     },
-    position: { x: 400, y: 700 },
+    position: { x: 1000, y: 700 },
     draggable: false,
   },
   {
@@ -256,7 +248,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-9.png",
     },
-    position: { x: 400, y: 800 },
+    position: { x: 1000, y: 800 },
     draggable: false,
   },
   {
@@ -265,28 +257,28 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-10.png",
     },
-    position: { x: 400, y: 900 },
+    position: { x: 1000, y: 900 },
     draggable: false,
   },
 ];
 
-const CustomNodeFlow = ({setWdata}) => {
+const CustomNodeFlow = ({ setWdata }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   function getSecondPart(str) {
-    return str.split('-')[1];
-}
-   let g = []
+    return str.split("-")[1];
+  }
+  let g = [];
   const onConnect = useCallback(
     (params) => {
       setEdges((eds) => addEdge(params, eds));
       console.log("Connect:", params);
-      let m = []
-      m[0] = params.source
-      m[1] = getSecondPart(params.target)
-      g.push(m)
-      console.log("gg", g)
-      setWdata(g)
+      let m = [];
+      m[0] = params.source;
+      m[1] = getSecondPart(params.target);
+      g.push(m);
+      console.log("gg", g);
+      setWdata(g);
     },
 
     [setEdges]
@@ -299,14 +291,13 @@ const CustomNodeFlow = ({setWdata}) => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
-      
       className="touchdevice-flow"
       fitView
-      panOnDrag= {false}
+      panOnDrag={true}
       // panOnScroll= {true}
-      zoomOnScroll= {false}
-      preventScrolling = {false}
-      zoomOnPinch = {false}
+      zoomOnScroll={true}
+      preventScrolling={false}
+      zoomOnPinch={true}
       // zoomOnScroll={false}
       panOnScroll={false}
       // preventScrolling={false}
