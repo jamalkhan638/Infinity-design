@@ -13269,6 +13269,12 @@ textarea.form-control-lg {
   max-width: 32.7563rem;
 }
 
+@media screen and (max-width: 1200px) {
+  .symbol-box-left,
+  .symbol-box-right {
+    min-height: 7.8rem;
+  }
+}
 .line-match .line-primary {
   cursor: grab;
   align-self: center;
@@ -13296,7 +13302,6 @@ textarea.form-control-lg {
 .react-flow__node-input {
   min-width: 15rem;
   padding: 1rem;
-  height: 92px !important;
 }
 
 .react-flow__handle-left .source {
@@ -13321,40 +13326,7 @@ textarea.form-control-lg {
 .touchdevice-flow .react-flow__handle.connecting {
   animation: bounce 1600ms infinite ease-out;
 }
-.logoutbtn{
-  float: right;
-    color: white;
-    text-decoration: underline;
-    margin-top: -1rem;
-    margin-right: 1rem;
-    cursor: pointer
-}
-@media all {
-  .page-break {
-    display: none;
-  }
-}
 
-@media print {
-  html, body {
-    height: initial !important;
-    overflow: initial !important;
-    -webkit-print-color-adjust: exact;
-  }
-}
-
-@media print {
-  .page-break {
-    margin-top: 1rem;
-    display: block;
-    page-break-before: auto;
-  }
-}
-
-@page {
-  size: auto;
-  margin: 20mm;
-}
 @keyframes bounce {
   0% {
     transform: translate(0, -50%) scale(1);
@@ -13362,4 +13334,7 @@ textarea.form-control-lg {
   50% {
     transform: translate(0, -50%) scale(1.1);
   }
+}
+.dragging {
+  border: 2px dashed #000; /* Add visual indication like dashed border */
 }/*# sourceMappingURL=main.css.map */

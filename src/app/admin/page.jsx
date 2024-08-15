@@ -8,7 +8,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
 import { Container, Pagination, Table } from "react-bootstrap";
-import { getAllCandidates, getCandidateData, getWorkerFileteredData } from "../api/api";
+import {
+  getAllCandidates,
+  getCandidateData,
+  getWorkerFileteredData,
+} from "../api/api";
 
 import ReactToPrint from "react-to-print";
 import { CandidateFile } from "@/components/Pdf/CandidateFile";
@@ -18,8 +22,8 @@ import { toast, ToastContainer } from "react-toastify";
 const AdminDashboardPage = () => {
   const [data, setData] = useState();
   const [data1, setData1] = useState();
-  const [gmpselecetd, setGMPSelected] = useState()
-  const [whimisselecetd, setWhimisSelected] = useState()
+  const [gmpselecetd, setGMPSelected] = useState();
+  const [whimisselecetd, setWhimisSelected] = useState();
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -46,13 +50,11 @@ const AdminDashboardPage = () => {
     };
 
     const res = await getWorkerFileteredData(data);
-    if(res?.data?.records?.responseData?.data){
+    if (res?.data?.records?.responseData?.data) {
       setData(res?.data?.records?.responseData?.data);
+    } else {
+      toast.error(res?.data?.records?.responseData);
     }
-    else{
-      toast.error(res?.data?.records?.responseData)
-    }
-   
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -65,7 +67,6 @@ const AdminDashboardPage = () => {
   const currentRecords = data?.slice(indexOfFirstRecord, indexOfLastRecord);
   const componentRef = useRef();
 
- 
   return (
     <>
       <MetaData
@@ -74,7 +75,7 @@ const AdminDashboardPage = () => {
         keywords="employment, job"
       />
       <main>
-      <ToastContainer />
+        <ToastContainer />
         <LogoBanner />
         <section className="py-5 position-relative">
           <span className="position-absolute top-0 end-0">
@@ -186,39 +187,39 @@ const AdminDashboardPage = () => {
                         </Link>
                         <span className="text-primary">|</span>
                         <div>
-                        
-
-                          
-                        <ReactToPrint
-                          trigger={() => (
-                            <span 
-                            style={{textDecoration: "underline", cursor: "pointer"}}
-                            className="text-primary"
-                              href="!#"
-                              onClick={(e)=>{e.preventDefault()}}>
-                              Download
-                            </span>
-                          )}
-                          content={() => componentRef.current}
-                        />
-
+                          <ReactToPrint
+                            trigger={() => (
+                              <button
+                                type="button"
+                                className="btn btn-primary btn-sm"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                }}
+                              >
+                                Download
+                              </button>
+                            )}
+                            content={() => componentRef.current}
+                          />
                         </div>
-                        
                       </div>
                     </td>
                     {
-            
-
-              <div style={{ display: "none" }}>
-                <CandidateFile data = {data1} whmisQuizDataSelected = {whimisselecetd} gmpselecetd = {gmpselecetd}  ref={componentRef} id = {employee?.id} />
-              </div>
-            
-            }
+                      <div style={{ display: "none" }}>
+                        <CandidateFile
+                          data={data1}
+                          whmisQuizDataSelected={whimisselecetd}
+                          gmpselecetd={gmpselecetd}
+                          ref={componentRef}
+                          id={employee?.id}
+                        />
+                      </div>
+                    }
                   </tr>
                 ))}
               </tbody>
             </Table>
-      
+
             <Pagination className="justify-content-center">
               {/* <Pagination.First /> */}
               <Pagination.Prev

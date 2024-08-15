@@ -2,6 +2,7 @@ import whmisQuizData from "@/data/whmisQuizData";
 import React from "react";
 import { Form } from "react-bootstrap";
 import CustomNodeFlow from "../line-match/CustomNodeFlow";
+import SymbolMatch from "../line-match/SymbolMatch";
 
 const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
   return (
@@ -11,7 +12,8 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
           <h1 className="mb-5 text-capitalize display-5 fw-bold text-black">
             Match the desciption to the symbol
           </h1>
-          <CustomNodeFlow setWdata = {setWdata} />
+          <CustomNodeFlow setWdata={setWdata} />
+          <SymbolMatch />
         </div>
       </fieldset>
       <fieldset className="mt-5">
@@ -33,7 +35,9 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
                   label={option.label}
                   value={option.value}
                   // checked={formData[quiz.question] === option.label}
-                  onChange={(e) => handleInputChange(e, quiz.question, quiz.index)}
+                  onChange={(e) =>
+                    handleInputChange(e, quiz.question, quiz.index)
+                  }
                   isInvalid={!!errors[quiz.question]}
                 />
               ))}

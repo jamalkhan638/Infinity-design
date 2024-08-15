@@ -225,6 +225,13 @@
   max-width: 32.7563rem;
 }
 
+@media screen and (max-width: 1200px) {
+  .symbol-box-left,
+  .symbol-box-right {
+    min-height: 7.8rem;
+  }
+}
+
 .line-match {
   .line-primary {
     cursor: grab;
@@ -296,4 +303,8 @@
   50% {
     transform: translate(0, -50%) scale(1.1);
   }
+}
+
+.dragging {
+  border: 2px dashed #000; /* Add visual indication like dashed border */
 }
