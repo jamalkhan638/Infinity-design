@@ -19,7 +19,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 0 },
+    position: { x: 300, y: 0 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -36,7 +36,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 100 },
+    position: { x: 300, y: 100 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -53,7 +53,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 200 },
+    position: { x: 300, y: 200 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -70,7 +70,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 300 },
+    position: { x: 300, y: 300 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -85,7 +85,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 400 },
+    position: { x: 300, y: 400 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -100,7 +100,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 500 },
+    position: { x: 300, y: 500 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -115,7 +115,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 600 },
+    position: { x: 300, y: 600 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -130,7 +130,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 700 },
+    position: { x: 300, y: 700 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -147,7 +147,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 800 },
+    position: { x: 300, y: 800 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -165,7 +165,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 500, y: 900 },
+    position: { x: 300, y: 900 },
     sourcePosition: "right",
     draggable: false,
   },
