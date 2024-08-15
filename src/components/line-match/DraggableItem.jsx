@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Image from "next/image";
 
 const ItemType = "ITEM";
 
 const DraggableItem = ({ item, index, moveItem }) => {
-  const [{ isDragging }, ref] = useDrag({
+  // useDrag hook to handle the drag state
+  const [{ isDragging }, drag] = useDrag({
     type: ItemType,
     item: { index },
     collect: (monitor) => ({
@@ -13,6 +14,7 @@ const DraggableItem = ({ item, index, moveItem }) => {
     }),
   });
 
+  // useDrop hook to handle the drop state and item reordering
   const [, drop] = useDrop({
     accept: ItemType,
     hover: (draggedItem) => {
@@ -23,9 +25,16 @@ const DraggableItem = ({ item, index, moveItem }) => {
     },
   });
 
+  // Combine drag and drop refs for better handling
+  const ref = useRef(null);
+  const combinedRef = (node) => {
+    drag(drop(node));
+    ref.current = node;
+  };
+
   return (
     <div
-      ref={(node) => ref(drop(node))}
+      ref={combinedRef}
       className={`flex-fill w-100 symbol-box-right p-2 cursor-grab ${
         isDragging ? "dragging" : ""
       }`}
