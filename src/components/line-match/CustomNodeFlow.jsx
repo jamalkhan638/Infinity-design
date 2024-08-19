@@ -298,7 +298,7 @@ const CustomNodeFlow = ({ setWdata }) => {
       preventScrolling={false}
       zoomOnPinch={false}
       // zoomOnScroll={false}
-      panOnScroll={true}
+      panOnScroll={false}
       // preventScrolling={false}
     />
   );
