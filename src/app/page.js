@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "@/components/ui/Banner";
 import { Container, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,6 +11,7 @@ import gmpQuestionsData from "@/data/gmpQuestionsData";
 import StepThankyou from "@/components/formSteps/StepThankyou";
 import MetaData from "@/components/seo/MetaData";
 import { registerCandidate } from "./api/api";
+import { useSearchParams } from "next/navigation";
 
 
 
@@ -179,18 +180,35 @@ export default function Home() {
     }
   };
 
+ 
+
   const handlePrevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
+  const searchParams = useSearchParams()
+  useEffect(()=>{
+   
+    const retake = searchParams.get('retake');
+    console.log("ss", retake)
+    if(retake){
+      setCurrentStep(2)
+    }
+
+  },[searchParams])
+  const retake = searchParams.get('retake')
+  const id = searchParams.get('id')
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    
+    e.preventDefault(); 
 
     formData.whims = whimis;
     formData.gmp = gmp;
     formData.signs_matching = wdata;
+    formData.is_retake = retake ? true : false
+    formData.id = id
     console.log("Form submission triggered");
 
     const { valid, errors } = validateGmpQuiz(formData);

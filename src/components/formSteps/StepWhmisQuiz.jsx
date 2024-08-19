@@ -13,7 +13,7 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
             Match the desciption to the symbol
           </h1>
           <CustomNodeFlow setWdata={setWdata} />
-          <SymbolMatch />
+          {/* <SymbolMatch /> */}
         </div>
       </fieldset>
       <fieldset className="mt-5">

@@ -262,7 +262,7 @@ const ViewPage = () => {
                     click retake button to attempt again.
                   </p>
                   <Link
-                    href="/?retake=true"
+                    href={ `/?retake=true&id=${data?.id}`}
                     className="btn btn-lg btn-primary px-4 rounded-pill text-white"
                   >
                     Retake Quiz

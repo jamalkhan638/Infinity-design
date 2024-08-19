@@ -13324,7 +13324,14 @@ textarea.form-control-lg {
   border-radius: 0.1875rem;
   background-color: #ff4e00;
 }
-
+.logoutbtn{
+  float: right;
+    color: white;
+    text-decoration: underline;
+    margin-top: -1rem;
+    margin-right: 1rem;
+    cursor: pointer
+}
 .touchdevice-flow .react-flow__handle.connecting {
   animation: bounce 1600ms infinite ease-out;
 }
