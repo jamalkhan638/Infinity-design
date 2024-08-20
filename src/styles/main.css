@@ -13312,7 +13312,14 @@ textarea.form-control-lg {
 .react-flow__handle-left .source {
   display: none;
 }
-
+.logoutbtn{
+  float: right;
+    color: white;
+    text-decoration: underline;
+    margin-top: -1rem;
+    margin-right: 1rem;
+    cursor: pointer
+}
 .touchdevice-flow {
   border: 2px solid #ff4e00;
   border-radius: 0.5rem;
