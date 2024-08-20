@@ -94,3 +94,16 @@ export const registerCandidate = async (data) => {
       return e;
     }
   };
+
+  export const handleRetakeQuiz = async (id) => {
+        
+    try {
+      const res = await axios.get(
+        `${config.api_url}candidate/retake/${id}`,
+        headers
+      );
+      return res;
+    } catch (e) {
+      return e;
+    }
+  };

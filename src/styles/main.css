@@ -13335,6 +13335,9 @@ textarea.form-control-lg {
 .touchdevice-flow .react-flow__handle.connecting {
   animation: bounce 1600ms infinite ease-out;
 }
+.form-check-input{
+  border-color: #e74c3c !important;
+}
 
 @keyframes bounce {
   0% {

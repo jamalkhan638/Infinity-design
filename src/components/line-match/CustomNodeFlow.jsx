@@ -293,6 +293,7 @@ const CustomNodeFlow = ({ setWdata }) => {
       nodeTypes={nodeTypes}
       className="touchdevice-flow"
       panOnDrag={false}
+      fitView
       // panOnScroll= {true}
       zoomOnScroll={false}
       preventScrolling={false}

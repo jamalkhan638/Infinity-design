@@ -5,10 +5,11 @@ import MetaData from "@/components/seo/MetaData";
 import whmisQuizDataSelected from "@/data/whmisQuizDataSelected";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { useSearchParams } from "next/navigation";
-import { getCandidateData } from "@/app/api/api";
+import { getCandidateData, handleRetakeQuiz } from "@/app/api/api";
 import whmisSymbolData from "@/data/whmisSymbolData";
+import { toast, ToastContainer } from "react-toastify";
 
 const ViewPage = () => {
   const searchParams = useSearchParams();
@@ -171,8 +172,16 @@ const ViewPage = () => {
     console.log("whmisSymbolData", whmisSymbolData);
   };
 
+  const handleClickRetake = async (id) =>{
+    const res = await handleRetakeQuiz(id)
+    toast.success(res?.data?.data)
+
+
+  }
+
   return (
     <>
+     <ToastContainer />
       <MetaData
         title="User View - Infinity employment"
         description="Infinity employment"
@@ -261,12 +270,13 @@ const ViewPage = () => {
                     Unfortunately this candidate did not pass the exam, Please
                     click retake button to attempt again.
                   </p>
-                  <Link
-                    href={ `/?retake=true&id=${data?.id}`}
+                  <Button
+                  onClick={()=>{handleClickRetake(data?.id)}}
+                    // href={ `/?retake=true&id=${data?.id}`}
                     className="btn btn-lg btn-primary px-4 rounded-pill text-white"
                   >
                     Retake Quiz
-                  </Link>
+                  </Button>
                 </>
               ) : null}
             </div>

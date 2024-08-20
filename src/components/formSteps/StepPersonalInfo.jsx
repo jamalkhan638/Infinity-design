@@ -55,11 +55,12 @@ const StepPersonalInfo = ({
             id="dob"
             name="dob"
             type="date"
+            min="1920-05-11" max="2024-09-11"
             className="form-control rounded-0"
             value={formData.dob}
             onChange={handleInputChange}
             required
-            max="2999-12-31"
+            
           />
         </div>
         <div className="col">

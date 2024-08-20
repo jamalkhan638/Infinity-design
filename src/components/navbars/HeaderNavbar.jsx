@@ -14,22 +14,22 @@ import NavLink from "../buttons/NavLink";
 
 const socialLinks = [
   {
-    href: "https://www.facebook.com",
+    href: "http://whmisinfinityemployment.ca/",
     icon: <FaceookIcon />,
     label: "Facebook",
   },
   {
-    href: "https://www.instagram.com",
+    href: "http://whmisinfinityemployment.ca/",
     icon: <InstagramIcon />,
     label: "Instagram",
   },
   {
-    href: "https://www.linkedin.com",
+    href: "http://whmisinfinityemployment.ca/",
     icon: <TwitterIcon />,
     label: "Twitter",
   },
   {
-    href: "https://www.linkedin.com",
+    href: "http://whmisinfinityemployment.ca/",
     icon: <LinkedinIcon />,
     label: "LinkedIn",
   },
@@ -71,7 +71,7 @@ const HeaderNavbar = () => {
           </Offcanvas.Header>
           <Offcanvas.Body className="gap-lg-4 gap-xl-5">
             <Nav className="gap-3 mb-3 mb-lg-0 ps-md-4 me-auto">
-              <NavLink className="nav-link px-2" as={Link} href="/">
+              {/* <NavLink className="nav-link px-2" as={Link} href="/">
                 Home
               </NavLink>
               <NavLink className="nav-link px-2" as={Link} href="/about">
@@ -79,7 +79,7 @@ const HeaderNavbar = () => {
               </NavLink>
               <NavLink className="nav-link px-2" as={Link} href="/about">
                 Contact
-              </NavLink>
+              </NavLink> */}
             </Nav>
             <div className="d-flex align-items-center gap-1 mb-3 mb-lg-0">
               {socialLinks.map((link, index) => (
@@ -94,7 +94,7 @@ const HeaderNavbar = () => {
                 </a>
               ))}
             </div>
-            <Button variant="outline-light" className="rounded-0">
+            <Button href="http://whmisinfinityemployment.ca/" variant="outline-light" className="rounded-0">
               Contact Us Today!
             </Button>
           </Offcanvas.Body>
