@@ -332,8 +332,8 @@ const CustomNodeFlow = ({ setWdata,wdata }) => {
       onConnect={onConnect}
       nodeTypes={nodeTypes}
       className="touchdevice-flow"
-      panOnDrag={true}
-      panOnScroll={false}
+      panOnDrag={false}
+      panOnScroll={true}
       zoomOnScroll={false}
       preventScrolling={false}
       zoomOnPinch={false}
