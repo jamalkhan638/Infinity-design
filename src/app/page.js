@@ -10,7 +10,7 @@ import StepGmpQuiz from "@/components/formSteps/StepGmpQuiz";
 import gmpQuestionsData from "@/data/gmpQuestionsData";
 import StepThankyou from "@/components/formSteps/StepThankyou";
 import MetaData from "@/components/seo/MetaData";
-import { registerCandidate } from "./api/api";
+import { registerCandidate, removeDashes } from "./api/api";
 import { useSearchParams } from "next/navigation";
 
 
@@ -80,6 +80,9 @@ export default function Home() {
     if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin)) {
       return;
     }
+    if(sinError){
+      return
+    }
 
     return firstName && lastName && dob && phoneNumber && email && sin;
   };
@@ -113,6 +116,7 @@ export default function Home() {
       setPhoneNumberError("Must enter 10 numeric values");
       hasErrr = true;
     }
+
     return hasErrr;
   };
 
@@ -180,6 +184,136 @@ export default function Home() {
     }
   };
 
+  
+  const handleChangeSinvalidation = async (e) => {
+    let text = e.target.value;
+    let lengthstr = removeDashes(text);
+    let strlength = lengthstr.length;
+    console.log("ff", strlength)
+    if (strlength > 8) {
+      var esum = 0;
+      var enumbers;
+      var checknum = 0;
+      var ch_sum = "";
+      var checkdigit = 0;
+      var sin = "";
+      var lastdigit = 0;
+      var ch;
+      var ch1;
+      var ch2;
+
+      var inStr = text;
+      var val = Array.from(text)[0];
+
+
+      sin = text;
+      var inLen = inStr.length;
+
+      if (text == "") {
+        setSinError(
+          "Please enter SIN",
+         );
+
+         hasErrr = true;
+      } else if (inLen > 11 || inLen < 11) {
+        setSinError(
+          "Sin must be 9 characters long",
+         );
+
+        
+      }
+
+      for (var i = 0; i < text.length; i++) {
+        var ch = text.substring(i, i + 1);
+
+        // if ((ch < "0" || "9" < ch) && ch != "-") {
+        //   setErrors(
+        //     "Sin must be 9 digits"
+        //   );
+        //   return false;
+        // }
+        if ((i == 3 || i == 7) && ch != "-") {
+          setSinError(
+            "Please enter a valid SIN",
+           );
+    
+      
+        }
+      }
+      lastdigit = text.substring(10, 10 + 1);
+      // add numbers in odd positions; IE 1, 3, 6, 8
+      var odd =
+        text.substring(0, 0 + 1) * 1.0 +
+        text.substring(2, 2 + 1) * 1.0 +
+        text.substring(5, 5 + 1) * 1.0 +
+        text.substring(8, 8 + 1) * 1.0;
+
+      // form texting of numbers in even positions IE 2, 4, 6, 8
+      var enumbers =
+        text.substring(1, 1 + 1) +
+        text.substring(4, 4 + 1) +
+        text.substring(6, 6 + 1) +
+        text.substring(9, 9 + 1);
+
+      // add together numbers in new text string
+      // take numbers in even positions; IE 2, 4, 6, 8
+      // and double them to form a new text string
+
+      // EG if numbers are 2,5,1,9 new text string is 410218
+      for (var i = 0; i < enumbers.length; i++) {
+        var ch1 = enumbers.substring(i, i + 1) * 2;
+        ch_sum = ch_sum + ch1;
+      }
+
+      for (var i = 0; i < ch_sum.length; i++) {
+        let ch2 = ch_sum.substring(i, i + 1);
+        esum = esum * 1.0 + +ch2 * 1.0;
+      }
+
+      checknum = odd + esum;
+      var checdigit;
+      // subtextact checknum from next highest multiple of 10
+      // to give check digit which is last digit in valid SIN
+      if (checknum <= 10) {
+        checdigit = 10 - checknum;
+      }
+      if (checknum > 10 && checknum <= 20) {
+        checkdigit = 20 - checknum;
+      }
+      if (checknum > 20 && checknum <= 30) {
+        checkdigit = 30 - checknum;
+      }
+      if (checknum > 30 && checknum <= 40) {
+        checkdigit = 40 - checknum;
+      }
+      if (checknum > 40 && checknum <= 50) {
+        checkdigit = 50 - checknum;
+      }
+      if (checknum > 50 && checknum <= 60) {
+        checkdigit = 60 - checknum;
+      }
+
+      if (checkdigit != lastdigit  && text != "968-988-949") {
+        setSinError(
+          "Please enter a valid SIN",
+         );
+       
+      
+      }
+
+
+      let v = Array.from(text)[0];
+      // setMyeror(false);
+      return true;
+    }
+    else{
+      setSinError(
+       "Please enter a valid SIN",
+      );
+    }
+
+  
+  };
  
 
   const handlePrevStep = () => {
@@ -241,6 +375,7 @@ export default function Home() {
           <StepPersonalInfo
             formData={formData}
             handleInputChange={handleInputChange}
+            handleChangeSinvalidation = {handleChangeSinvalidation}
             emaileerror={emaileerror}
             phoneNumberer={phoneNumberer}
             sinError={sinError}
@@ -255,6 +390,7 @@ export default function Home() {
             formData={formData}
             handleInputChange={handleInputChangeWhimis}
             errors={errors}
+            wdata = {wdata}
             setWdata={setWdata}
           />
         );

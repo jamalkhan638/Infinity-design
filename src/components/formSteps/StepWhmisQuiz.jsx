@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 import CustomNodeFlow from "../line-match/CustomNodeFlow";
 import SymbolMatch from "../line-match/SymbolMatch";
 
-const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
+const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata , wdata}) => {
   return (
     <>
       <fieldset>
@@ -12,7 +12,7 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata }) => {
           <h1 className="mb-5 text-capitalize display-5 fw-bold text-black">
             Match the desciption to the symbol
           </h1>
-          <CustomNodeFlow setWdata={setWdata} />
+          <CustomNodeFlow setWdata={setWdata} wdata = {wdata}/>
           {/* <SymbolMatch /> */}
         </div>
       </fieldset>

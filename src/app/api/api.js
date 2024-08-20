@@ -107,3 +107,10 @@ export const registerCandidate = async (data) => {
       return e;
     }
   };
+
+ export  function removeDashes(word) {
+    if (word) {
+      return word?.replaceAll("-", "")?.replace(/_/g, "");
+    }
+    return "";
+  }

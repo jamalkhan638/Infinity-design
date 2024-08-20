@@ -7,7 +7,8 @@ const StepPersonalInfo = ({
   phoneNumberer,
   sinError,
   fnameErr,
-  lnameErr
+  lnameErr,
+  handleChangeSinvalidation
 }) => {
   return (
     <fieldset>
@@ -122,7 +123,8 @@ const StepPersonalInfo = ({
              <InputMask
            
             onChange={(e) => {
-              handleInputChange(e);
+              handleInputChange(e),
+              handleChangeSinvalidation(e)
             }}
             className="form-control rounded-0"
            name="sin"

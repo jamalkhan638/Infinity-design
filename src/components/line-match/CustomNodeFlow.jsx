@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import ReactFlow, { addEdge, useNodesState, useEdgesState } from "reactflow";
+import { useCallback, useRef, useState } from "react";
+import ReactFlow, { addEdge, useNodesState, useEdgesState, reconnectEdge } from "reactflow";
 
 import CustomNode from "./CustomNode";
 
@@ -262,7 +262,7 @@ const initialNodes = [
   },
 ];
 
-const CustomNodeFlow = ({ setWdata }) => {
+const CustomNodeFlow = ({ setWdata,wdata }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   function getSecondPart(str) {
@@ -283,6 +283,46 @@ const CustomNodeFlow = ({ setWdata }) => {
 
     [setEdges]
   );
+  const edgeReconnectSuccessful = useRef(true);
+  const onReconnectStart = useCallback((params) => {
+
+    edgeReconnectSuccessful.current = false;
+  }, []);
+
+  const onReconnect = useCallback((oldEdge, newConnection) => {
+    edgeReconnectSuccessful.current = true;
+    setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
+    console.log("ww", newConnection.source, newConnection.target)
+    let m = [];
+    m[0] = newConnection.source;
+    m[1] = getSecondPart(newConnection.target);
+    g.push(m);
+    console.log("gg", g);
+    // setWdata(g);
+
+    let resultMap = {};
+
+    g.forEach(item => {
+        resultMap[item[0]] = item[1];
+    });
+    
+    // Convert the resultMap back to an array of arrays
+    let uniqueData = Object.entries(resultMap);
+    
+  console.log("unique",uniqueData);
+  setWdata(uniqueData)
+  }, []);
+
+  const onReconnectEnd = useCallback((_, edge) => {
+    console.log("Connect11:", edge, edge.source);
+    if (!edgeReconnectSuccessful.current) {
+      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+      
+    }
+   
+    edgeReconnectSuccessful.current = true;
+  }, []);
+  
   return (
     <ReactFlow
       nodes={nodes}
@@ -301,6 +341,9 @@ const CustomNodeFlow = ({ setWdata }) => {
       // zoomOnScroll={false}
       panOnScroll={false}
       // preventScrolling={false}
+      onReconnect={onReconnect}
+      onReconnectStart={onReconnectStart}
+      onReconnectEnd={onReconnectEnd}
     />
   );
 };
