@@ -19,7 +19,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 0 },
+    position: { x: 40, y: 50 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -36,7 +36,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 100 },
+    position: { x: 40, y: 150 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -53,7 +53,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 200 },
+    position: { x: 40, y: 250 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -70,7 +70,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 300 },
+    position: { x: 40, y: 350 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -85,7 +85,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 400 },
+    position: { x: 40, y: 450 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -100,7 +100,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 500 },
+    position: { x: 40, y: 550 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -115,7 +115,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 600 },
+    position: { x: 40, y: 650 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -130,7 +130,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 700 },
+    position: { x: 40, y: 750 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -147,7 +147,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 800 },
+    position: { x: 40, y: 850 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -165,7 +165,7 @@ const initialNodes = [
         </>
       ),
     },
-    position: { x: 0, y: 900 },
+    position: { x: 40, y: 950 },
     sourcePosition: "right",
     draggable: false,
   },
@@ -176,7 +176,7 @@ const initialNodes = [
       label: "/assets/images/m-icon-1.png",
     },
 
-    position: { x: 800, y: 0 },
+    position: { x: 770, y: 50 },
     draggable: false,
   },
   {
@@ -185,7 +185,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-2.png",
     },
-    position: { x: 800, y: 100 },
+    position: { x: 770, y: 150 },
     draggable: false,
   },
   {
@@ -194,7 +194,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-3.png",
     },
-    position: { x: 800, y: 200 },
+    position: { x: 770, y: 250 },
     draggable: false,
   },
   {
@@ -203,7 +203,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-4.png",
     },
-    position: { x: 800, y: 300 },
+    position: { x: 770, y: 350 },
     draggable: false,
   },
   {
@@ -212,7 +212,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-5.png",
     },
-    position: { x: 800, y: 400 },
+    position: { x: 770, y: 450 },
     draggable: false,
   },
   {
@@ -221,7 +221,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-6.png",
     },
-    position: { x: 800, y: 500 },
+    position: { x: 770, y: 550 },
     draggable: false,
   },
   {
@@ -230,7 +230,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-7.png",
     },
-    position: { x: 800, y: 600 },
+    position: { x: 770, y: 650 },
     draggable: false,
   },
   {
@@ -239,7 +239,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-8.png",
     },
-    position: { x: 800, y: 700 },
+    position: { x: 770, y: 750 },
     draggable: false,
   },
   {
@@ -248,7 +248,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-9.png",
     },
-    position: { x: 800, y: 800 },
+    position: { x: 770, y: 850 },
     draggable: false,
   },
   {
@@ -257,7 +257,7 @@ const initialNodes = [
     data: {
       label: "/assets/images/m-icon-10.png",
     },
-    position: { x: 800, y: 900 },
+    position: { x: 770, y: 950 },
     draggable: false,
   },
 ];
@@ -292,15 +292,12 @@ const CustomNodeFlow = ({ setWdata }) => {
       onConnect={onConnect}
       nodeTypes={nodeTypes}
       className="touchdevice-flow"
-      panOnDrag={false}
-      fitView
-      // panOnScroll= {true}
+      panOnDrag={true}
+      panOnScroll={false}
       zoomOnScroll={false}
       preventScrolling={false}
-      zoomOnPinch={false}
-      // zoomOnScroll={false}
-      panOnScroll={false}
-      // preventScrolling={false}
+      zoomOnPinch={true}
+      // fitView
     />
   );
 };

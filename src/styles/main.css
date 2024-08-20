@@ -13314,7 +13314,9 @@ textarea.form-control-lg {
 }
 
 .touchdevice-flow {
-  min-height: 66rem;
+  border: 2px solid #ff4e00;
+  border-radius: 0.5rem;
+  min-height: 70rem;
   margin: 0 auto;
 }
 
@@ -13324,19 +13326,9 @@ textarea.form-control-lg {
   border-radius: 0.1875rem;
   background-color: #ff4e00;
 }
-.logoutbtn{
-  float: right;
-    color: white;
-    text-decoration: underline;
-    margin-top: -1rem;
-    margin-right: 1rem;
-    cursor: pointer
-}
+
 .touchdevice-flow .react-flow__handle.connecting {
   animation: bounce 1600ms infinite ease-out;
-}
-.form-check-input{
-  border-color: #e74c3c !important;
 }
 
 @keyframes bounce {
