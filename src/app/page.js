@@ -141,6 +141,7 @@ export default function Home() {
     setSinError("");
     setFanmeErr("");
     setLnameErr("");
+    setPhoneNumberError("")
     const { name, value } = e.target;
     console.log("name", name, value);
 
