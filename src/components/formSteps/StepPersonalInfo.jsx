@@ -123,8 +123,8 @@ const StepPersonalInfo = ({
              <InputMask
            
             onChange={(e) => {
-              handleInputChange(e),
-              handleChangeSinvalidation(e)
+              handleInputChange(e)
+              // handleChangeSinvalidation(e)
             }}
             className="form-control rounded-0"
            name="sin"

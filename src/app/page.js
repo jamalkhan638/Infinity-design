@@ -80,9 +80,9 @@ export default function Home() {
     if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin)) {
       return;
     }
-    if(sinError){
-      return
-    }
+    // if(sinError){
+    //   return
+    // }
 
     return firstName && lastName && dob && phoneNumber && email && sin;
   };
