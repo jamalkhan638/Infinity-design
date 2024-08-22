@@ -80,12 +80,12 @@ const StepPersonalInfo = ({
 
         
         <div className="col">
-          <label for="dateInput" className="d-block mb-1" htmlFor="dob">
+          <label className="d-block mb-1" htmlFor="dob">
             Date of Birth:
           </label>
           <input
             
-            // id="dob"
+             id="dob"
             name="dob"
             type="date"
             min="1920-05-11" max={cdate}
@@ -93,7 +93,7 @@ const StepPersonalInfo = ({
             value={formData.dob}
             onChange={handleInputChange}
             required
-             id="dateInput"
+            
              onKeyDown={handleKeyDown}
              onPaste={handlePaste}
           
