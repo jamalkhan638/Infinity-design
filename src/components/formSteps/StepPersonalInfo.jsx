@@ -29,7 +29,13 @@ const StepPersonalInfo = ({
     return [year, month, day].join("-");
   }
  
- 
+  const handleKeyDown = (event) => {
+    event.preventDefault(); // Prevent manual input via keyboard
+  };
+
+  const handlePaste = (event) => {
+    event.preventDefault(); // Prevent pasting into the input field
+  };
   
   return (
     <fieldset>
@@ -74,11 +80,12 @@ const StepPersonalInfo = ({
 
         
         <div className="col">
-          <label className="d-block mb-1" htmlFor="dob">
+          <label for="dateInput" className="d-block mb-1" htmlFor="dob">
             Date of Birth:
           </label>
           <input
-            id="dob"
+            
+            // id="dob"
             name="dob"
             type="date"
             min="1920-05-11" max={cdate}
@@ -86,7 +93,10 @@ const StepPersonalInfo = ({
             value={formData.dob}
             onChange={handleInputChange}
             required
-            
+             id="dateInput"
+             onKeyDown={handleKeyDown}
+             onPaste={handlePaste}
+          
           />
         </div>: null}
         <div className="col">
