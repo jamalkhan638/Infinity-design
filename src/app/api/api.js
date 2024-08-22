@@ -114,3 +114,19 @@ export const registerCandidate = async (data) => {
     }
     return "";
   }
+
+  
+  export const sinCheck = async (data) => {
+        
+    try {
+      const res = await axios.post(
+        `${config.api_url}candidate/sinCheck`,
+        data,
+        headers,
+        
+      );
+      return res;
+    } catch (e) {
+      return e;
+    }
+  };

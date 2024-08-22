@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 const StepPersonalInfo = ({
   formData,
@@ -10,6 +10,27 @@ const StepPersonalInfo = ({
   lnameErr,
   handleChangeSinvalidation
 }) => {
+  const [cdate, setCdate] = useState()
+
+  useEffect(()=>{
+    let newd = new Date()
+    setCdate(formatDate(newd))
+  },[])
+
+  function formatDate(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+ 
+ 
+  
   return (
     <fieldset>
       <div className="text-center pb-lg-3">
@@ -48,6 +69,10 @@ const StepPersonalInfo = ({
           />
             <p style={{ color: "red" }}>{lnameErr}</p>
         </div>
+        {
+          cdate ?
+
+        
         <div className="col">
           <label className="d-block mb-1" htmlFor="dob">
             Date of Birth:
@@ -56,14 +81,14 @@ const StepPersonalInfo = ({
             id="dob"
             name="dob"
             type="date"
-            min="1920-05-11" max="2024-09-11"
+            min="1920-05-11" max={cdate}
             className="form-control rounded-0"
             value={formData.dob}
             onChange={handleInputChange}
             required
             
           />
-        </div>
+        </div>: null}
         <div className="col">
           <label className="d-block mb-1" htmlFor="phoneNumber">
             Phone Number:
@@ -123,8 +148,8 @@ const StepPersonalInfo = ({
              <InputMask
            
             onChange={(e) => {
-              handleInputChange(e)
-              // handleChangeSinvalidation(e)
+              handleInputChange(e),
+              handleChangeSinvalidation(e)
             }}
             className="form-control rounded-0"
            name="sin"
