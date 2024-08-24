@@ -7,6 +7,7 @@ const CustomNode = ({ data }) => {
   return (
     <div className="react-flow__node-default">
       <CustomHandle type="target" position={Position.Left} isConnectable={1} />
+      <span className="react-flow__handle-2" />
       <div>
         <Image
           width={56}
