@@ -1,6 +1,10 @@
-import { useCallback, useRef, useState } from "react";
-import ReactFlow, { addEdge, useNodesState, useEdgesState, reconnectEdge } from "reactflow";
-
+import { useCallback, useRef } from "react";
+import ReactFlow, {
+  addEdge,
+  useNodesState,
+  useEdgesState,
+  reconnectEdge,
+} from "reactflow";
 import CustomNode from "./CustomNode";
 
 const nodeTypes = {
@@ -262,89 +266,90 @@ const initialNodes = [
   },
 ];
 
-const CustomNodeFlow = ({ setWdata,wdata }) => {
+const CustomNodeFlow = ({ setWdata, wdata }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  function getSecondPart(str) {
-    return str.split("-")[1];
-  }
-  let g = [];
-  
-  let val
-  function removeUniqueElements(arr) {
-    // Step 1: Create a frequency map
-    const frequencyMap = arr.reduce((acc, value) => {
-      acc[value] = (acc[value] || 0) + 1;
-      return acc;
-    }, {});
-  
-    // Step 2: Filter out elements that appear only once
-    return arr.filter(item => frequencyMap[item] > 1);
-  }
+
+  const getSecondPart = (str) => str.split("-")[1];
+
   const onConnect = useCallback(
     (params) => {
-  
+      const sourceNode = nodes.find((node) => node.id === params.source);
+      const targetNode = nodes.find(
+        (node) => node.id === getSecondPart(params.target)
+      );
 
- // All duplicates
-  console.log("Connect:", params);
-   
-       
-      setEdges((eds) => addEdge(params, eds));
-      console.log("Connect:", params);
-      let m = [];
-      m[0] = params.source;
-      m[1] = getSecondPart(params.target);
-      g.push(m);
-      console.log("gg", g);
-      setWdata(g);
-      
+      if (sourceNode?.type !== "custom" && targetNode?.type !== "custom") {
+        setEdges((eds) => addEdge(params, eds));
+        console.log("Connect:", params);
 
-
+        const newEdge = [params.source, getSecondPart(params.target)];
+        setWdata((prevWdata) => {
+          const updatedEdges = [...prevWdata, newEdge];
+          const uniqueEdges = updatedEdges.filter(
+            (value, index, self) =>
+              index ===
+              self.findIndex((e) => e[0] === value[0] && e[1] === value[1])
+          );
+          console.log("Unique edges:", uniqueEdges);
+          return uniqueEdges;
+        });
+      } else {
+        console.log("Edge not added. Condition not met.");
+      }
     },
-
-    [setEdges],
-  
+    [nodes, setEdges, setWdata]
   );
-  const edgeReconnectSuccessful = useRef(true);
-  const onReconnectStart = useCallback((params) => {
 
+  const edgeReconnectSuccessful = useRef(true);
+
+  const onReconnectStart = useCallback(() => {
     edgeReconnectSuccessful.current = false;
   }, []);
 
-  const onReconnect = useCallback((oldEdge, newConnection) => {
-    edgeReconnectSuccessful.current = true;
-    setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
-    console.log("ww", newConnection.source, newConnection.target)
-    let m = [];
-    m[0] = newConnection.source;
-    m[1] = getSecondPart(newConnection.target);
-    g.push(m);
-    console.log("gg", g);
-    // setWdata(g);
+  const onReconnect = useCallback(
+    (oldEdge, newConnection) => {
+      const sourceNode = nodes.find((node) => node.id === newConnection.source);
+      const targetNode = nodes.find(
+        (node) => node.id === getSecondPart(newConnection.target)
+      );
 
-    let resultMap = {};
+      if (sourceNode?.type !== "custom" && targetNode?.type !== "custom") {
+        edgeReconnectSuccessful.current = true;
+        setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
+        console.log("Reconnected:", newConnection.source, newConnection.target);
 
-    g.forEach(item => {
-        resultMap[item[0]] = item[1];
-    });
-    
-    // Convert the resultMap back to an array of arrays
-    let uniqueData = Object.entries(resultMap);
-    
-  console.log("unique",uniqueData);
-  setWdata(uniqueData)
-  }, []);
+        const newEdge = [
+          newConnection.source,
+          getSecondPart(newConnection.target),
+        ];
+        setWdata((prevWdata) => {
+          const updatedEdges = [...prevWdata, newEdge];
+          const uniqueEdges = updatedEdges.filter(
+            (value, index, self) =>
+              index ===
+              self.findIndex((e) => e[0] === value[0] && e[1] === value[1])
+          );
+          console.log("Unique edges:", uniqueEdges);
+          return uniqueEdges;
+        });
+      } else {
+        console.log("Reconnection not performed. Condition not met.");
+      }
+    },
+    [nodes, setEdges, setWdata]
+  );
 
-  const onReconnectEnd = useCallback((_, edge) => {
-    console.log("Connect11:", edge, edge.source);
-    if (!edgeReconnectSuccessful.current) {
-      setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-      
-    }
-   
-    edgeReconnectSuccessful.current = true;
-  }, []);
-  
+  const onReconnectEnd = useCallback(
+    (_, edge) => {
+      if (!edgeReconnectSuccessful.current) {
+        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+      }
+      edgeReconnectSuccessful.current = true;
+    },
+    [setEdges]
+  );
+
   return (
     <ReactFlow
       nodes={nodes}
@@ -355,13 +360,10 @@ const CustomNodeFlow = ({ setWdata,wdata }) => {
       nodeTypes={nodeTypes}
       className="touchdevice-flow"
       panOnDrag={false}
-      // panOnScroll={true}
       zoomOnScroll={false}
       preventScrolling={false}
       zoomOnPinch={false}
-      // zoomOnScroll={false}
       panOnScroll={false}
-      // preventScrolling={false}
       onReconnect={onReconnect}
       onReconnectStart={onReconnectStart}
       onReconnectEnd={onReconnectEnd}

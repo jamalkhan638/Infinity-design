@@ -308,3 +308,20 @@
     transform: translate(0, -50%) scale(1.1);
   }
 }
+
+.react-flow__node-default .react-flow__handle {
+  width: 0.1rem;
+  height: 0.1rem;
+  border-radius: 0.1875rem;
+  background-color: $primary;
+}
+
+.react-flow__node-default .react-flow__handle-2 {
+  position: absolute;
+  left: -8px;
+  display: flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.1875rem;
+  background-color: $primary;
+}
