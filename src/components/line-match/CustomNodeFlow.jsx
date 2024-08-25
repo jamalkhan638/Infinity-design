@@ -269,8 +269,26 @@ const CustomNodeFlow = ({ setWdata,wdata }) => {
     return str.split("-")[1];
   }
   let g = [];
+  
+  let val
+  function removeUniqueElements(arr) {
+    // Step 1: Create a frequency map
+    const frequencyMap = arr.reduce((acc, value) => {
+      acc[value] = (acc[value] || 0) + 1;
+      return acc;
+    }, {});
+  
+    // Step 2: Filter out elements that appear only once
+    return arr.filter(item => frequencyMap[item] > 1);
+  }
   const onConnect = useCallback(
     (params) => {
+  
+
+ // All duplicates
+  console.log("Connect:", params);
+   
+       
       setEdges((eds) => addEdge(params, eds));
       console.log("Connect:", params);
       let m = [];
@@ -279,9 +297,13 @@ const CustomNodeFlow = ({ setWdata,wdata }) => {
       g.push(m);
       console.log("gg", g);
       setWdata(g);
+      
+
+
     },
 
-    [setEdges]
+    [setEdges],
+  
   );
   const edgeReconnectSuccessful = useRef(true);
   const onReconnectStart = useCallback((params) => {
@@ -343,6 +365,7 @@ const CustomNodeFlow = ({ setWdata,wdata }) => {
       onReconnect={onReconnect}
       onReconnectStart={onReconnectStart}
       onReconnectEnd={onReconnectEnd}
+      
       // zoomOnPinch={true}
       // fitView
     />
