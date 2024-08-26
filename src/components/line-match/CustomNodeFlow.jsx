@@ -270,7 +270,26 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+  // Maps to track connections
+  const descriptionToSymbolMap = useRef(new Map());
+  const symbolToDescriptionMap = useRef(new Map());
+
   const getSecondPart = (str) => str.split("-")[1];
+
+  const updateWdataEdges = useCallback(
+    (newEdge) => {
+      setWdata((prevWdata) => {
+        const updatedEdges = [...prevWdata, newEdge];
+        const uniqueEdges = updatedEdges.filter(
+          (value, index, self) =>
+            index ===
+            self.findIndex((e) => e[0] === value[0] && e[1] === value[1])
+        );
+        return uniqueEdges;
+      });
+    },
+    [setWdata]
+  );
 
   const onConnect = useCallback(
     (params) => {
@@ -280,31 +299,38 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
       );
 
       if (sourceNode?.type !== "custom" && targetNode?.type !== "custom") {
+        const targetId = getSecondPart(params.target);
+
+        // Check if the source node is already connected to a symbol
+        if (descriptionToSymbolMap.current.has(params.source)) {
+          console.log("Source node already has a connection.");
+          return;
+        }
+
+        // Check if the target node is already connected to a description
+        if (symbolToDescriptionMap.current.has(targetId)) {
+          console.log("Target node already has a connection.");
+          return;
+        }
+
+        // Add edge
         setEdges((eds) => addEdge(params, eds));
         console.log("Connect:", params);
 
-        const newEdge = [params.source, getSecondPart(params.target)];
-        setWdata((prevWdata) => {
-          const updatedEdges = [...prevWdata, newEdge];
-          const uniqueEdges = updatedEdges.filter(
-            (value, index, self) =>
-              index ===
-              self.findIndex((e) => e[0] === value[0] && e[1] === value[1])
-          );
-          console.log("Unique edges:", uniqueEdges);
-          return uniqueEdges;
-        });
+        // Update mappings
+        descriptionToSymbolMap.current.set(params.source, targetId);
+        symbolToDescriptionMap.current.set(targetId, params.source);
+
+        updateWdataEdges([params.source, targetId]);
       } else {
         console.log("Edge not added. Condition not met.");
       }
     },
-    [nodes, setEdges, setWdata]
+    [nodes, setEdges, updateWdataEdges]
   );
 
-  const edgeReconnectSuccessful = useRef(true);
-
   const onReconnectStart = useCallback(() => {
-    edgeReconnectSuccessful.current = false;
+    // Placeholder for potential logic when reconnection starts
   }, []);
 
   const onReconnect = useCallback(
@@ -315,7 +341,19 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
       );
 
       if (sourceNode?.type !== "custom" && targetNode?.type !== "custom") {
-        edgeReconnectSuccessful.current = true;
+        // Remove old mappings
+        const oldSource = oldEdge.source;
+        const oldTarget = getSecondPart(oldEdge.target);
+
+        if (descriptionToSymbolMap.current.get(oldSource) === oldTarget) {
+          descriptionToSymbolMap.current.delete(oldSource);
+        }
+
+        if (symbolToDescriptionMap.current.get(oldTarget) === oldSource) {
+          symbolToDescriptionMap.current.delete(oldTarget);
+        }
+
+        // Add new edge
         setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
         console.log("Reconnected:", newConnection.source, newConnection.target);
 
@@ -323,31 +361,52 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
           newConnection.source,
           getSecondPart(newConnection.target),
         ];
-        setWdata((prevWdata) => {
-          const updatedEdges = [...prevWdata, newEdge];
-          const uniqueEdges = updatedEdges.filter(
-            (value, index, self) =>
-              index ===
-              self.findIndex((e) => e[0] === value[0] && e[1] === value[1])
-          );
-          console.log("Unique edges:", uniqueEdges);
-          return uniqueEdges;
-        });
+
+        // Update mappings
+        descriptionToSymbolMap.current.set(
+          newConnection.source,
+          getSecondPart(newConnection.target)
+        );
+        symbolToDescriptionMap.current.set(
+          getSecondPart(newConnection.target),
+          newConnection.source
+        );
+
+        updateWdataEdges(newEdge);
       } else {
         console.log("Reconnection not performed. Condition not met.");
       }
     },
-    [nodes, setEdges, setWdata]
+    [nodes, setEdges, updateWdataEdges]
   );
 
-  const onReconnectEnd = useCallback(
-    (_, edge) => {
-      if (!edgeReconnectSuccessful.current) {
-        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+  const onReconnectEnd = useCallback((_, edge) => {
+    // Placeholder for potential logic when reconnection ends
+  }, []);
+
+  const onEdgeRemove = useCallback(
+    (edgeToRemove) => {
+      // Remove edge
+      setEdges((eds) => eds.filter((e) => e.id !== edgeToRemove.id));
+
+      // Update mappings
+      const source = edgeToRemove.source;
+      const target = getSecondPart(edgeToRemove.target);
+
+      if (descriptionToSymbolMap.current.get(source) === target) {
+        descriptionToSymbolMap.current.delete(source);
       }
-      edgeReconnectSuccessful.current = true;
+
+      if (symbolToDescriptionMap.current.get(target) === source) {
+        symbolToDescriptionMap.current.delete(target);
+      }
+
+      // Update wdata
+      setWdata((prevWdata) =>
+        prevWdata.filter((e) => !(e[0] === source && e[1] === target))
+      );
     },
-    [setEdges]
+    [setEdges, setWdata]
   );
 
   return (
@@ -367,9 +426,7 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
       onReconnect={onReconnect}
       onReconnectStart={onReconnectStart}
       onReconnectEnd={onReconnectEnd}
-      
-      // zoomOnPinch={true}
-      // fitView
+      onEdgeRemove={onEdgeRemove} // Add this to handle edge removal
     />
   );
 };
