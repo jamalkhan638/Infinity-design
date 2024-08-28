@@ -74,6 +74,7 @@ export default function Home() {
   const [sinError, setSinError] = useState();
   const [fnameErr, setFanmeErr] = useState();
   const [lnameErr, setLnameErr] = useState();
+  const [dateError, setDateError] = useState()
   const validatePersonalInfo =   (data) => {
     const { firstName, lastName, dob, phoneNumber, email, sin } = data;
     let data1 = {
@@ -125,7 +126,9 @@ export default function Home() {
       setPhoneNumberError("Must enter 10 numeric values");
       hasErrr = true;
     }
-
+if(dateError){
+  hasErrr = true;
+}
     return hasErrr;
   };
 
@@ -143,16 +146,42 @@ export default function Home() {
     const { name, value } = e.target;
     setgmp([...gmp, value]);
   };
+  const [cdate, setCdate] = useState();
+  function formatDate(date) {
+    var d = new Date(date),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
 
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+
+    return [year, month, day].join("-");
+  }
+  useEffect(() => {
+    let newd = new Date();
+    setCdate(formatDate(newd));
+  }, []);
   console.log("wwwwwwwww", gmp);
   const handleInputChange = (e, question) => {
     setEmaillError("");
     setSinError("");
     setFanmeErr("");
     setLnameErr("");
+ 
     setPhoneNumberError("")
     const { name, value } = e.target;
     console.log("name", name, value);
+    if(name == "dob"){
+      setDateError("")
+      let date1 = value
+      let date2 = new Date(date1)
+      let date3 = new Date(cdate)
+      console.log("event", date2, cdate);
+      if(date2.getTime() >= date3.getTime()){
+        setDateError("invalid Date")
+      }
+    }
 
     setFormData({
       ...formData,
@@ -274,6 +303,8 @@ export default function Home() {
             sinError={sinError}
             fnameErr={fnameErr}
             lnameErr={lnameErr}
+            setDateError = {setDateError}
+            dateError = {dateError}
            
           />
         );

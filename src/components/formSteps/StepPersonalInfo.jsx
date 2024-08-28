@@ -8,14 +8,16 @@ const StepPersonalInfo = ({
   sinError,
   fnameErr,
   lnameErr,
-  handleChangeSinvalidation
+  handleChangeSinvalidation,
+  setDateError,
+  dateError,
 }) => {
-  const [cdate, setCdate] = useState()
+  const [cdate, setCdate] = useState();
 
-  useEffect(()=>{
-    let newd = new Date()
-    setCdate(formatDate(newd))
-  },[])
+  useEffect(() => {
+    let newd = new Date();
+    setCdate(formatDate(newd));
+  }, []);
 
   function formatDate(date) {
     var d = new Date(date),
@@ -28,15 +30,25 @@ const StepPersonalInfo = ({
 
     return [year, month, day].join("-");
   }
- 
+
   const handleKeyDown = (event) => {
-    event.preventDefault(); // Prevent manual input via keyboard
+   setDateError("")
+    let date1 = event.target.value
+    let date2 = new Date(date1)
+    let date3 = new Date(cdate)
+    console.log("event", date2, cdate);
+    if(date2.getTime() >= date3.getTime()){
+      console.log("kkkkkkkkkkk")
+      setDateError("invalid Date")
+    }
+    console.log("111111111")
+
   };
 
   const handlePaste = (event) => {
     event.preventDefault(); // Prevent pasting into the input field
   };
-  
+
   return (
     <fieldset>
       <div className="text-center pb-lg-3">
@@ -58,7 +70,7 @@ const StepPersonalInfo = ({
             onChange={handleInputChange}
             required
           />
-  <p style={{ color: "red" }}>{fnameErr}</p>
+          <p style={{ color: "red" }}>{fnameErr}</p>
         </div>
         <div className="col">
           <label className="d-block mb-1" htmlFor="lastName">
@@ -73,32 +85,30 @@ const StepPersonalInfo = ({
             onChange={handleInputChange}
             required
           />
-            <p style={{ color: "red" }}>{lnameErr}</p>
+          <p style={{ color: "red" }}>{lnameErr}</p>
         </div>
-        {
-          cdate ?
-
-        
-        <div className="col">
-          <label className="d-block mb-1" htmlFor="dob">
-            Date of Birth:
-          </label>
-          <input
-            
-             id="dob"
-            name="dob"
-            type="date"
-            min="1920-05-11" max={cdate}
-            className="form-control rounded-0"
-            value={formData.dob}
-            onChange={handleInputChange}
-            required
-            
-             onKeyDown={handleKeyDown}
-             onPaste={handlePaste}
-          
-          />
-        </div>: null}
+        {cdate ? (
+          <div className="col">
+            <label className="d-block mb-1" htmlFor="dob">
+              Date of Birth:
+            </label>
+            <input
+              id="dob"
+              name="dob"
+              type="date"
+              min="1920-05-11"
+              max={cdate}
+              className="form-control rounded-0"
+              value={formData.dob}
+              onChange={handleInputChange}
+              required
+              // onKeyUp={handleKeyDown}
+              onPaste={handlePaste}
+            />
+                <p style={{ color: "red" }}>{dateError}</p>
+          </div>
+        ) : null}
+    
         <div className="col">
           <label className="d-block mb-1" htmlFor="phoneNumber">
             Phone Number:
@@ -114,12 +124,11 @@ const StepPersonalInfo = ({
           /> */}
 
           <InputMask
-           name="phoneNumber"
+            name="phoneNumber"
             onChange={(e) => {
               handleInputChange(e);
             }}
             className="form-control rounded-0"
-           
             mask="999-999-9999"
             // value={formData.phoneNumber}
             defaultValue={formData.phoneNumber}
@@ -155,19 +164,17 @@ const StepPersonalInfo = ({
             onChange={handleInputChange}
             required
           /> */}
-             <InputMask
-           
+          <InputMask
             onChange={(e) => {
-              handleInputChange(e),
-              handleChangeSinvalidation(e)
+              handleInputChange(e), handleChangeSinvalidation(e);
             }}
             className="form-control rounded-0"
-           name="sin"
+            name="sin"
             mask="999-999-999"
             // value={formData.sin}
             defaultValue={formData.sin}
           />
-          <p style={{color: "red"}}>{sinError}</p>
+          <p style={{ color: "red" }}>{sinError}</p>
         </div>
       </div>
     </fieldset>
