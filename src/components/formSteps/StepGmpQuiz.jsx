@@ -1,8 +1,15 @@
 import gmpQuestionsData from "@/data/gmpQuestionsData";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 
 const StepGmpQuiz = ({ formData, handleInputChange, errors }) => {
+  const { pathname } = useRouter();
+  useEffect(() => {
+    // some browsers (like safari) may require a timeout to delay calling this
+    // function after a page has loaded; otherwise, it may not update the position
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return (
     <fieldset>
       <div className="text-center pb-lg-5">
@@ -35,7 +42,7 @@ const StepGmpQuiz = ({ formData, handleInputChange, errors }) => {
                     key={idx}
                     type="radio"
                     name={quiz.question}
-                    id={`${option}-${index}`} // Ensure each ID is unique
+                    id={`${quiz.question}-${option.value}-${index}`} // Ensure each ID is unique
                     label={option.label}
                     value={option.value}
                     // checked={formData[quiz.question] === option}

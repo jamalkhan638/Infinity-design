@@ -1,10 +1,15 @@
 import whmisQuizData from "@/data/whmisQuizData";
-import React from "react";
+import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import CustomNodeFlow from "../line-match/CustomNodeFlow";
 import SymbolMatch from "../line-match/SymbolMatch";
 
+
+
 const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata , wdata}) => {
+
+
+
   return (
     <>
       <fieldset>
