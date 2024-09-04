@@ -13,8 +13,6 @@ import MetaData from "@/components/seo/MetaData";
 import { registerCandidate, removeDashes, sinCheck } from "./api/api";
 import { useSearchParams } from "next/navigation";
 
-
-
 const validateGmpQuiz = (data) => {
   let valid = true;
   const errors = {};
@@ -36,11 +34,11 @@ export default function Home() {
     console.log("dddddddddddd", data, wdata);
     let valid = true;
     const errors = {};
-    
+
     if (data?.whims?.length < whmisQuizData?.length) {
       valid = false;
     }
-    if(wdata?.length < 9){
+    if (wdata?.length < 9) {
       valid = false;
     }
     // whmisQuizData.forEach((quiz) => {
@@ -50,7 +48,7 @@ export default function Home() {
     //   }
     // }
     // );
-  
+
     return { valid, errors };
   };
   const [currentStep, setCurrentStep] = useState(1);
@@ -74,20 +72,19 @@ export default function Home() {
   const [sinError, setSinError] = useState();
   const [fnameErr, setFanmeErr] = useState();
   const [lnameErr, setLnameErr] = useState();
-  const [dateError, setDateError] = useState()
-  const validatePersonalInfo =   (data) => {
+  const [dateError, setDateError] = useState();
+  const validatePersonalInfo = (data) => {
     const { firstName, lastName, dob, phoneNumber, email, sin } = data;
     let data1 = {
-      sin: sin
-    }
-  
+      sin: sin,
+    };
 
     if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin)) {
       return;
     }
-   
-    if(sinError){
-      return
+
+    if (sinError) {
+      return;
     }
 
     return firstName && lastName && dob && phoneNumber && email && sin;
@@ -98,11 +95,9 @@ export default function Home() {
   // }
 
   const handlValidate = (firstName, lastName, dob, phoneNumber, email, sin) => {
-    const actuallCode = phoneNumber
-    .replaceAll("_", "")
-    .replaceAll("-", "");
+    const actuallCode = phoneNumber.replaceAll("_", "").replaceAll("-", "");
 
-  var strlengths = actuallCode.length;
+    var strlengths = actuallCode.length;
     let hasErrr = false;
     if (!email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
       setEmaillError("Please enter valid email");
@@ -126,9 +121,9 @@ export default function Home() {
       setPhoneNumberError("Must enter 10 numeric values");
       hasErrr = true;
     }
-if(dateError){
-  hasErrr = true;
-}
+    if (dateError) {
+      hasErrr = true;
+    }
     return hasErrr;
   };
 
@@ -168,19 +163,25 @@ if(dateError){
     setSinError("");
     setFanmeErr("");
     setLnameErr("");
- 
-    setPhoneNumberError("")
+
+    setPhoneNumberError("");
     const { name, value } = e.target;
     console.log("name", name, value);
-    if(name == "dob"){
-      setDateError("")
-      let date1 = value
-      let date2 = new Date(date1)
-      let date3 = new Date(cdate)
+    if (name == "dob") {
+      setDateError("");
+      let date1 = value;
+      let date2 = new Date(date1);
+      let date3 = new Date(cdate);
       console.log("event", date2, cdate);
-      if(date2.getTime() >= date3.getTime()){
-        setDateError("invalid Date")
+      if (date2.getTime() >= date3.getTime()) {
+        setDateError("invalid Date");
       }
+      let dateObj = new Date(date1);
+
+console.log("vallllll",dateObj)
+if(dateObj == "Invalid Date"){
+  setDateError("invalid Date");
+}
     }
 
     setFormData({
@@ -198,12 +199,12 @@ if(dateError){
       // Step 1: Validate personal info
       if (validatePersonalInfo(formData)) {
         let data1 = {
-          sin: formData?.sin
-        }
-        const  res = await sinCheck(data1)
-        if(res?.data?.data === "User Already Exist"){
-          toast.error("Sin already exist")
-          return
+          sin: formData?.sin,
+        };
+        const res = await sinCheck(data1);
+        if (res?.data?.data === "User Already Exist") {
+          toast.error("Sin already exist");
+          return;
         }
         setCurrentStep(currentStep + 1); // Move to step 2
       } else {
@@ -231,37 +232,30 @@ if(dateError){
     }
   };
 
-  
-  
- 
-
   const handlePrevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
-  const searchParams = useSearchParams()
-  useEffect(()=>{
-   
-    const retake = searchParams.get('retake');
-    console.log("ss", retake)
-    if(retake){
-      setCurrentStep(2)
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const retake = searchParams.get("retake");
+    console.log("ss", retake);
+    if (retake) {
+      setCurrentStep(2);
     }
-
-  },[searchParams])
-  const retake = searchParams.get('retake')
-  const id = searchParams.get('id')
+  }, [searchParams]);
+  const retake = searchParams.get("retake");
+  const id = searchParams.get("id");
   const handleSubmit = async (e) => {
-    
-    e.preventDefault(); 
+    e.preventDefault();
 
     formData.whims = whimis;
     formData.gmp = gmp;
     formData.signs_matching = wdata;
-    formData.is_retake = retake ? true : false
-    formData.id = id
+    formData.is_retake = retake ? true : false;
+    formData.id = id;
     console.log("Form submission triggered");
 
     const { valid, errors } = validateGmpQuiz(formData);
@@ -285,14 +279,14 @@ if(dateError){
   };
 
   useEffect(() => {
-    window.history.scrollRestoration = 'manual'
+    window.history.scrollRestoration = "manual";
   }, []);
 
   const handleChangeSinvalidation = async (e) => {
     let text = e.target.value;
     let lengthstr = removeDashes(text);
     let strlength = lengthstr.length;
-    console.log("ff", strlength)
+    console.log("ff", strlength);
     if (strlength > 8) {
       var esum = 0;
       var enumbers;
@@ -308,22 +302,15 @@ if(dateError){
       var inStr = text;
       var val = Array.from(text)[0];
 
-
       sin = text;
       var inLen = inStr.length;
 
       if (text == "") {
-        setSinError(
-          "Please enter SIN",
-         );
+        setSinError("Please enter SIN");
 
-         hasErrr = true;
+        hasErrr = true;
       } else if (inLen > 11 || inLen < 11) {
-        setSinError(
-          "Sin must be 9 characters long",
-         );
-
-        
+        setSinError("Sin must be 9 characters long");
       }
 
       for (var i = 0; i < text.length; i++) {
@@ -336,11 +323,7 @@ if(dateError){
         //   return false;
         // }
         if ((i == 3 || i == 7) && ch != "-") {
-          setSinError(
-            "Please enter a valid SIN",
-           );
-    
-      
+          setSinError("Please enter a valid SIN");
         }
       }
       lastdigit = text.substring(10, 10 + 1);
@@ -396,28 +379,17 @@ if(dateError){
         checkdigit = 60 - checknum;
       }
 
-      if (checkdigit != lastdigit  && text != "968-988-949") {
-        setSinError(
-          "Please enter a valid SIN",
-         );
-       
-      
+      if (checkdigit != lastdigit && text != "968-988-949") {
+        setSinError("Please enter a valid SIN");
       }
-
 
       let v = Array.from(text)[0];
       // setMyeror(false);
       return true;
+    } else {
+      setSinError("Please enter a valid SIN");
     }
-    else{
-      setSinError(
-       "Please enter a valid SIN",
-      );
-    }
-
-  
   };
- 
 
   const renderStep = () => {
     if (submitted) {
@@ -429,15 +401,14 @@ if(dateError){
           <StepPersonalInfo
             formData={formData}
             handleInputChange={handleInputChange}
-            handleChangeSinvalidation = {handleChangeSinvalidation}
+            handleChangeSinvalidation={handleChangeSinvalidation}
             emaileerror={emaileerror}
             phoneNumberer={phoneNumberer}
             sinError={sinError}
             fnameErr={fnameErr}
             lnameErr={lnameErr}
-            setDateError = {setDateError}
-            dateError = {dateError}
-           
+            setDateError={setDateError}
+            dateError={dateError}
           />
         );
       case 2:
@@ -446,7 +417,7 @@ if(dateError){
             formData={formData}
             handleInputChange={handleInputChangeWhimis}
             errors={errors}
-            wdata = {wdata}
+            wdata={wdata}
             setWdata={setWdata}
           />
         );
