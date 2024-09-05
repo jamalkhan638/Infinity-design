@@ -411,7 +411,7 @@ export class CandidateFile extends Component {
                 </div>
                 <div className="mt-4">
                   <p>
-                    {new Date().toLocaleDateString()}
+                    {new Date( this.state.data?.current_date).toLocaleDateString()}
                     
                   </p>
                 </div>
