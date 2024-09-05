@@ -13,21 +13,7 @@ import MetaData from "@/components/seo/MetaData";
 import { registerCandidate, removeDashes, sinCheck } from "./api/api";
 import { useSearchParams } from "next/navigation";
 
-const validateGmpQuiz = (data) => {
-  let valid = true;
-  const errors = {};
-  if (data?.gmp?.length < gmpQuestionsData?.length) {
-    valid = false;
-  }
-  // gmpQuestionsData.forEach((quiz) => {
-  //   if (!data[quiz.question]) {
-  //     valid = false;
-  //     errors[quiz.question] = "This question is required.";
-  //   }
-  // });
 
-  return { valid, errors };
-};
 
 export default function Home() {
   const validateWhmisQuiz = (data) => {
@@ -59,6 +45,8 @@ export default function Home() {
     phoneNumber: "",
     email: "",
     sin: "",
+    gender: null,
+    status: null
   });
 
   const [errors, setErrors] = useState({});
@@ -73,13 +61,39 @@ export default function Home() {
   const [fnameErr, setFanmeErr] = useState();
   const [lnameErr, setLnameErr] = useState();
   const [dateError, setDateError] = useState();
+  const [gendererror, setGenderError] = useState()
+  const [statuserror, setStatusError] = useState()
+  const [curdateerror, setCdateError] = useState()
+  const [name, setName] = useState()
+  const[currentDate, setCurrentDate] = useState(new Date())
+  const [namerror, setNameError] = useState()
+  const validateGmpQuiz = (data) => {
+    let valid = true;
+    const errors = {};
+    if (data?.gmp?.length < gmpQuestionsData?.length) {
+      valid = false;
+    }
+    // gmpQuestionsData.forEach((quiz) => {
+    //   if (!data[quiz.question]) {
+    //     valid = false;
+    //     errors[quiz.question] = "This question is required.";
+    //   }
+    // });
+    // if(!name){
+    //   valid = false;
+    //   setNameError("Please enter name for signature")
+    // }
+ 
+  
+    return { valid, errors };
+  };
   const validatePersonalInfo = (data) => {
-    const { firstName, lastName, dob, phoneNumber, email, sin } = data;
+    const { firstName, lastName, dob, phoneNumber, email, sin, gender, status } = data;
     let data1 = {
       sin: sin,
     };
 
-    if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin)) {
+    if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin, gender, status)) {
       return;
     }
 
@@ -87,14 +101,14 @@ export default function Home() {
       return;
     }
 
-    return firstName && lastName && dob && phoneNumber && email && sin;
+    return firstName && lastName && dob && phoneNumber && email && sin && status && gender;
   };
 
   // const handlesincheck = async (text) =>{
 
   // }
 
-  const handlValidate = (firstName, lastName, dob, phoneNumber, email, sin) => {
+  const handlValidate = (firstName, lastName, dob, phoneNumber, email, sin, gender, status) => {
     const actuallCode = phoneNumber.replaceAll("_", "").replaceAll("-", "");
 
     var strlengths = actuallCode.length;
@@ -122,6 +136,18 @@ export default function Home() {
       hasErrr = true;
     }
     if (dateError) {
+      hasErrr = true;
+    }
+    if(!dob){
+      setDateError("Please select Date of Birth")
+      hasErrr = true;
+    }
+    if(!status){
+      setStatusError("Please select Status")
+      hasErrr = true;
+    }
+    if(!gender){
+      setGenderError("Please select gender")
       hasErrr = true;
     }
     return hasErrr;
@@ -163,6 +189,9 @@ export default function Home() {
     setSinError("");
     setFanmeErr("");
     setLnameErr("");
+    setGenderError("")
+    setDateError("")
+    setStatusError("")
 
     setPhoneNumberError("");
     const { name, value } = e.target;
@@ -256,12 +285,13 @@ if(dateObj == "Invalid Date"){
     formData.signs_matching = wdata;
     formData.is_retake = retake ? true : false;
     formData.id = id;
-    console.log("Form submission triggered");
+   
+    console.log("Form submission triggered", formData);
 
     const { valid, errors } = validateGmpQuiz(formData);
     console.log("Validation result:", { valid, errors });
     console.log("Form data:", formData);
-
+    formData.current_date = currentDate
     if (valid) {
       const res = await registerCandidate(formData);
       if (res) {
@@ -391,12 +421,21 @@ if(dateObj == "Invalid Date"){
     }
   };
 
+  const handleInputChangeDate = (e) =>{
+    setCurrentDate("")
+   setCurrentDate(e.target.value)
+  }
+  const handleInputChangeSignature = (e) =>{
+    setNameError("")
+    setName(e.target.value)
+   }
   const renderStep = () => {
     if (submitted) {
       return <StepThankyou />;
     }
     switch (currentStep) {
       case 1:
+        
         return (
           <StepPersonalInfo
             formData={formData}
@@ -409,6 +448,8 @@ if(dateObj == "Invalid Date"){
             lnameErr={lnameErr}
             setDateError={setDateError}
             dateError={dateError}
+            gendererror = {gendererror}
+            statuserror = {statuserror}
           />
         );
       case 2:
@@ -427,6 +468,12 @@ if(dateObj == "Invalid Date"){
             formData={formData}
             handleInputChange={handleInputChangeGMP}
             errors={errors}
+            setCdateError = {setCdateError}
+            curdateerror = {curdateerror}
+            namerror = {namerror}
+            handleInputChangeSignature = {handleInputChangeSignature}
+            handleInputChangeDate = {handleInputChangeDate}
+            name = {name}
           />
         );
       // case 4:

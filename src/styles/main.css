@@ -69,6 +69,11 @@
   box-sizing: border-box;
   color: #fff;
 }
+@font-face {
+  font-family: "SugarCandy"; /*Can be any text*/
+  src: local("SugarCandy"),
+    url("/fonts/sugar-candy.sugar-candy.ttf") format("truetype");
+}
 
 .Toastify__toast-container--top-left {
   top: var(--toastify-toast-top);
@@ -13359,3 +13364,16 @@ textarea.form-control-lg {
   page-break-inside: avoid;
   break-inside: avoid;
 }
+
+.signature{
+font-family: SugarCandy;
+font-size: 26px;
+margin-top: 1rem;
+}
+.signdiv{
+  height: 48px;
+  border: 1px solid lightgray;
+  padding-left: 0.4rem;
+
+}
+

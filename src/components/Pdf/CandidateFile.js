@@ -161,16 +161,25 @@ export class CandidateFile extends Component {
 
     this.setState({ gmpselecetd: gmpQuestionsDataSelected });
 
-    whmisSymbolData?.forEach((item, index)=>{
-      item.ans = this.state.data?.signs_matchingArray?.length > 0 && this.state.data?.signs_matchingArray[index]?.is_correct
-    })
+    whmisSymbolData?.forEach((item, index) => {
+      item.ans =
+        this.state.data?.signs_matchingArray?.length > 0 &&
+        this.state.data?.signs_matchingArray[index]?.is_correct;
+    });
   }
 
   render() {
     return (
       <div>
-        <main style={{padding: "30px"}}>
-          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey", borderTop: "0.5px solid lightgrey"}} className="py-5">
+        <main style={{ padding: "30px" }}>
+          <section
+            style={{
+              borderRight: "0.5px solid lightgrey",
+              borderLeft: "0.5px solid lightgrey",
+              borderTop: "0.5px solid lightgrey",
+            }}
+            className="py-5"
+          >
             <Container fluid="xxl">
               <h1 className="fw-bold text-center text-capitalize mb-5">
                 personal information
@@ -254,55 +263,59 @@ export class CandidateFile extends Component {
                     </span>
                   </div>
                 </div>
-                {this.state.data?.whimis_result < 16 || this.state.data?.gmp_result < 18 ? (
-                <>
-                  <p className="mb-3 fw-medium">
-                    Unfortumately you couldn't pass the test
-                  </p>
-              
-                </>
-              ) : null}
-              
+                {this.state.data?.whimis_result < 16 ||
+                this.state.data?.gmp_result < 18 ? (
+                  <>
+                    <p className="mb-3 fw-medium">
+                      Unfortumately you couldn't pass the test
+                    </p>
+                  </>
+                ) : null}
               </div>
             </Container>
           </section>
-          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey"}} className="py-5 ">
+          <section
+            style={{
+              borderRight: "0.5px solid lightgrey",
+              borderLeft: "0.5px solid lightgrey",
+            }}
+            className="py-5 "
+          >
             <Container fluid="xxl" className="border-top border-3 border-black">
               <fieldset className="pt-5">
-              <div className="text-center pb-lg-3">
-                <h2 className="mb-5 text-capitalize fw-bold text-black">
-                  Match the desciption to the symbol
-                </h2>
-                {whmisSymbolData?.map((item, index) => (
-                  <div key={index}>
-                    <div className="mt-4 d-flex justify-content-between position-relative avoid-break">
-                      <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
-                        <h6 className="mb-1 fw-bold">{item.title}</h6>
-                        <p className="mb-0 small">{item.description}</p>
-                      </div>
-                      <span className="line-match flex-fill d-none d-xl-flex">
-                        <span className="line-primary" />
-                      </span>
-                      <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
-                        {/* <Image
+                <div className="text-center pb-lg-3">
+                  <h2 className="mb-5 text-capitalize fw-bold text-black">
+                    Match the desciption to the symbol
+                  </h2>
+                  {whmisSymbolData?.map((item, index) => (
+                    <div key={index}>
+                      <div className="mt-4 d-flex justify-content-between position-relative avoid-break">
+                        <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
+                          <h6 className="mb-1 fw-bold">{item.title}</h6>
+                          <p className="mb-0 small">{item.description}</p>
+                        </div>
+                        <span className="line-match flex-fill d-none d-xl-flex">
+                          <span className="line-primary" />
+                        </span>
+                        <div className="flex-fill w-100 mx-auto symbol-box-right p-2">
+                          {/* <Image
                           width={56}
                           height={56}
                           src={item.imgSrc}
                           className="object-fit-contain"
                           alt={item.imgAlt}
                         /> */}
-                         {
-                        item?.ans ?
-                        <p style={{color: "green"}}>Correct</p>
-                        :
-                        <p style={{color: "red"}}>Wrong</p>
-                        }
+                          {item?.ans ? (
+                            <p style={{ color: "green" }}>Correct</p>
+                          ) : (
+                            <p style={{ color: "red" }}>Wrong</p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </fieldset>
+                  ))}
+                </div>
+              </fieldset>
               <fieldset className="mt-5 avoid-break">
                 <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
                   WHMIS Quiz
@@ -332,7 +345,14 @@ export class CandidateFile extends Component {
               </fieldset>
             </Container>
           </section>
-          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey", borderBottom: "0.5px solid lightgrey"}} className="py-5">
+          <section
+            style={{
+              borderRight: "0.5px solid lightgrey",
+              borderLeft: "0.5px solid lightgrey",
+              borderBottom: "0.5px solid lightgrey",
+            }}
+            className="py-5"
+          >
             <Container fluid="xxl" className="border-top border-3 border-black">
               <fieldset className="pt-5">
                 <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
@@ -378,6 +398,24 @@ export class CandidateFile extends Component {
                   </ul>
                 ) : null}
               </fieldset>
+              <div className="col mt-5">
+                <label className="d-block mb-1" htmlFor="dob">
+                  Signature
+                </label>
+                <div>
+                  <p className="signature">
+                    {this.state.data?.firstName +
+                      " " +
+                      this.state.data?.lastName}
+                  </p>
+                </div>
+                <div className="mt-4">
+                  <p>
+                    {new Date().toLocaleDateString()}
+                    
+                  </p>
+                </div>
+              </div>
             </Container>
           </section>
         </main>

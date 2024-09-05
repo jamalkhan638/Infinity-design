@@ -11,6 +11,8 @@ const StepPersonalInfo = ({
   handleChangeSinvalidation,
   setDateError,
   dateError,
+  gendererror,
+  statuserror
 }) => {
   const [cdate, setCdate] = useState();
 
@@ -94,7 +96,7 @@ const StepPersonalInfo = ({
             </label>
             <input
               id="dob"
-              name="dob"
+               name="dob"
               type="date"
               min="1920-05-11"
               max={cdate}
@@ -175,6 +177,36 @@ const StepPersonalInfo = ({
             defaultValue={formData.sin}
           />
           <p style={{ color: "red" }}>{sinError}</p>
+        </div>
+        <div className="col">
+          <label className="d-block mb-1" htmlFor="email">
+            Gender:
+          </label>
+          <select name = "gender"  className="form-control rounded-0"    value={formData.gender}
+            onChange={handleInputChange}
+            required>
+              <option disabled selected value> -- select an option -- </option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>I wish not to disclose</option>
+          </select>
+         
+          <p style={{ color: "red" }}>{gendererror}</p>
+        </div>
+        <div className="col">
+          <label className="d-block mb-1" htmlFor="email">
+           Current Canadian Status:
+          </label>
+          <select name = "status"  className="form-control rounded-0"    value={formData.status}
+            onChange={handleInputChange}
+            required>
+              <option disabled selected value> -- select an option -- </option>
+            <option>Study Permit Holder</option>
+            <option>Work Permit Holder</option>
+            <option>Permanent Residence</option>
+            <option>Citizen</option>
+          </select>
+          <p style={{ color: "red" }}>{statuserror}</p>
         </div>
       </div>
     </fieldset>
