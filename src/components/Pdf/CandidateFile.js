@@ -266,7 +266,7 @@ export class CandidateFile extends Component {
               </div>
             </Container>
           </section>
-          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey"}} className="py-5">
+          <section style={{borderRight: "0.5px solid lightgrey", borderLeft: "0.5px solid lightgrey"}} className="py-5 ">
             <Container fluid="xxl" className="border-top border-3 border-black">
               <fieldset className="pt-5">
               <div className="text-center pb-lg-3">
@@ -275,7 +275,7 @@ export class CandidateFile extends Component {
                 </h2>
                 {whmisSymbolData?.map((item, index) => (
                   <div key={index}>
-                    <div className="mt-4 d-flex justify-content-between position-relative">
+                    <div className="mt-4 d-flex justify-content-between position-relative avoid-break">
                       <div className="flex-fill w-100 mx-auto symbol-box-left p-2">
                         <h6 className="mb-1 fw-bold">{item.title}</h6>
                         <p className="mb-0 small">{item.description}</p>
@@ -303,14 +303,14 @@ export class CandidateFile extends Component {
                 ))}
               </div>
             </fieldset>
-              <fieldset className="mt-5">
+              <fieldset className="mt-5 avoid-break">
                 <h1 className="mb-5 pb-lg-3 text-center text-capitalize fw-bold text-black">
                   WHMIS Quiz
                 </h1>
                 {this.state.whmisselected?.map((quiz, index) => (
-                  <figure key={index} className="mt-4">
+                  <figure key={index} className="mt-4 avoid-break">
                     <h6 className="mb-3 fw-bold">{quiz.question}</h6>
-                    <div className="row page-break row-cols-1 row-cols-md-2 gy-1 px-2">
+                    <div className="row page-break row-cols-1 row-cols-md-2 gy-1 px-2 ">
                       {quiz.options.map((option, idx) => (
                         <Form.Check
                           key={idx}
@@ -339,10 +339,10 @@ export class CandidateFile extends Component {
                   GMP QUIZ
                 </h1>
                 {this.state.gmpselecetd ? (
-                  <ul className="nav flex-column flex-nowrap gap-3">
+                  <ul className="nav flex-column flex-nowrap gap-3 ">
                     {this.state.gmpselecetd?.map((quiz, index) => (
                       <li key={index}>
-                        <div className="d-flex flex-wrap gap-2">
+                        <div className="d-flex flex-wrap gap-2 avoid-break">
                           <h6
                             className="mb-0 fw-bold me-auto"
                             style={{ maxWidth: "54.5rem" }}

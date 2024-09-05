@@ -13355,3 +13355,7 @@ textarea.form-control-lg {
   border-radius: 0.1875rem;
   background-color: #ff4e00;
 }/*# sourceMappingURL=main.css.map */
+.avoid-break {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
