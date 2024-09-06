@@ -13376,4 +13376,10 @@ margin-top: 1rem;
   padding-left: 0.4rem;
 
 }
-
+.logoutbtn{
+  color: white;
+  float: right;
+  margin-right: 2rem;
+  cursor: pointer;
+  text-decoration: underline;
+}

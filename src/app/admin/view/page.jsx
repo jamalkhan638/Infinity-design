@@ -172,16 +172,14 @@ const ViewPage = () => {
     console.log("whmisSymbolData", whmisSymbolData);
   };
 
-  const handleClickRetake = async (id) =>{
-    const res = await handleRetakeQuiz(id)
-    toast.success(res?.data?.data)
-
-
-  }
+  const handleClickRetake = async () => {
+    const res = await handleRetakeQuiz(id);
+    toast.success(res?.data?.data);
+  };
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <MetaData
         title="User View - Infinity employment"
         description="Infinity employment"
@@ -271,7 +269,9 @@ const ViewPage = () => {
                     click retake button to attempt again.
                   </p>
                   <Button
-                  onClick={()=>{handleClickRetake(data?.id)}}
+                    onClick={() => {
+                      handleClickRetake();
+                    }}
                     // href={ `/?retake=true&id=${data?.id}`}
                     className="btn btn-lg btn-primary px-4 rounded-pill text-white"
                   >
