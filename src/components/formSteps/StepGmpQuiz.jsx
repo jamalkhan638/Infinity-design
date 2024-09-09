@@ -3,8 +3,9 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 
-const StepGmpQuiz = ({ formData, namerror, name, handleInputChange, curdateerror, errors, handleInputChangeSignature, handleInputChangeDate }) => {
+const StepGmpQuiz = ({ gmp, formData, namerror, name, handleInputChange, curdateerror, errors, handleInputChangeSignature, handleInputChangeDate }) => {
   const { pathname } = useRouter();
+  console.log("formData2", gmp)
   const [curDate, setCurDate] = useState()
   function formatDate(date) {
     var d = new Date(date),
@@ -25,6 +26,8 @@ const StepGmpQuiz = ({ formData, namerror, name, handleInputChange, curdateerror
     
     setCurDate(formatDate(date))
   }, [pathname]);
+
+
   return (
     <fieldset>
       <div className="text-center pb-lg-5">
@@ -60,7 +63,7 @@ const StepGmpQuiz = ({ formData, namerror, name, handleInputChange, curdateerror
                     id={`${quiz.question}-${option.value}-${index}`} // Ensure each ID is unique
                     label={option.label}
                     value={option.value}
-                    // checked={formData[quiz.question] === option}
+                    checked={String(gmp[index]) == String(option.value)}
                     onChange={(e) => handleInputChange(e, quiz.question)}
                     isInvalid={!!errors[quiz.question]}
                   />

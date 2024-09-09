@@ -9,7 +9,7 @@ import SymbolMatch from "../line-match/SymbolMatch";
 const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata , wdata}) => {
 
 
-
+console.log("formDayta", formData, wdata)
   return (
     <>
       <fieldset>
@@ -39,7 +39,7 @@ const StepWhmisQuiz = ({ formData, handleInputChange, errors, setWdata , wdata})
                   id={`${option.value}-${index}`} // Ensure each ID is unique
                   label={option.label}
                   value={option.value}
-                  // checked={formData[quiz.question] === option.label}
+                  checked={formData?.whims[index]?.includes(option.value)}
                   onChange={(e) =>
                     handleInputChange(e, quiz.question, quiz.index)
                   }

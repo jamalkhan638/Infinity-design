@@ -138,6 +138,9 @@ export default function Home() {
     if (dateError) {
       hasErrr = true;
     }
+    if (sinError) {
+      hasErrr = true;
+    }
     if(!dob){
       setDateError("Please select Date of Birth")
       hasErrr = true;
@@ -164,8 +167,19 @@ export default function Home() {
     }
   };
   const handleInputChangeGMP = (e, question) => {
+  
     const { name, value } = e.target;
-    setgmp([...gmp, value]);
+    const index = gmpQuestionsData.findIndex(quiz => quiz.question === question);
+
+    if (index !== -1) {
+      // Update the specific index with the new value (either "true" or "false")
+      const updatedGmp = [...gmp]; // Copy the array to avoid mutating state directly
+      updatedGmp[index] = value; // Set the value for the specific question
+  
+      // Call a setState function to update the formData (assuming setGmp is the state setter)
+      setgmp(updatedGmp);
+    }
+    // setgmp([...gmp, value]);
   };
   const [cdate, setCdate] = useState();
   function formatDate(date) {
@@ -474,6 +488,7 @@ if(dateObj == "Invalid Date"){
             handleInputChangeSignature = {handleInputChangeSignature}
             handleInputChangeDate = {handleInputChangeDate}
             name = {name}
+            gmp = {gmp}
           />
         );
       // case 4:

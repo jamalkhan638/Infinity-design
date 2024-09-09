@@ -267,8 +267,93 @@ const initialNodes = [
 ];
 
 const CustomNodeFlow = ({ setWdata, wdata }) => {
+  const initialEdges = [
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[0]?.length > 0 && wdata[0][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[0]?.length > 0 && wdata[0][1] && wdata[0][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[1]?.length > 0 && wdata[1][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[1]?.length > 0 && wdata[1][1] && wdata[1][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[2]?.length > 0 && wdata[2][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[2]?.length > 0 && wdata[2][1] && wdata[2][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[3]?.length > 0 && wdata[3][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[3]?.length > 0 && wdata[3][1] && wdata[3][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[4]?.length > 0 && wdata[4][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[4]?.length > 0 && wdata[4][1] && wdata[4][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[5]?.length > 0 && wdata[5][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[5]?.length > 0 && wdata[5][1] && wdata[5][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[6]?.length > 0 && wdata[6][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[6]?.length > 0 && wdata[6][1] && wdata[6][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[7]?.length > 0 && wdata[7][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[7]?.length > 0 && wdata[7][1] && wdata[7][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[8]?.length > 0 && wdata[8][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[8]?.length > 0 && wdata[8][1] && wdata[8][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+    {
+      id: "e1-2",
+      source: `${wdata?.length > 0 && wdata[9]?.length > 0 && wdata[9][0]}`, // Connects node with id '1'
+      target: `icon-${
+        wdata?.length > 0 && wdata[9]?.length > 0 && wdata[9][1] && wdata[9][1]
+      }`, // To node with id '2'
+      type: "default",
+    },
+  ];
+
+  console.log("initital node", initialEdges, wdata);
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   // Maps to track connections
   const descriptionToSymbolMap = useRef(new Map());
