@@ -12,6 +12,7 @@ import StepThankyou from "@/components/formSteps/StepThankyou";
 import MetaData from "@/components/seo/MetaData";
 import { registerCandidate, removeDashes, sinCheck } from "./api/api";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 
 
@@ -507,7 +508,16 @@ if(dateObj == "Invalid Date"){
         <Banner />
         <ToastContainer />
         <section className="py-5">
-          <Container fluid="xxl">
+        <span className="position-absolute top-1 end-0">
+            <Image
+              width={720}
+              height={879}
+              src="/assets/images/logo-p.png"
+              alt="logo-p"
+            />
+          </span>
+      
+          <Container fluid="xxl" className="position-relative">
             <div className="form-steps">
               <ul className="nav flex-nowrap gap-4 justify-content-center mx-auto w-90">
                 <li>
@@ -568,6 +578,7 @@ if(dateObj == "Invalid Date"){
                   </div>
                 </li>
               </ul>
+        
               <Form onSubmit={handleSubmit}>
                 <div className="mt-5 pt-5">{renderStep()}</div>
                 <div className="mt-5 text-center">
@@ -598,8 +609,11 @@ if(dateObj == "Invalid Date"){
                     </button>
                   )}
                 </div>
+            
               </Form>
+          
             </div>
+        
           </Container>
         </section>
       </main>

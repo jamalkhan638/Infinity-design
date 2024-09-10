@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import InputMask from "react-input-mask";
 const StepPersonalInfo = ({
@@ -53,6 +54,7 @@ const StepPersonalInfo = ({
 
   return (
     <fieldset>
+  
       <div className="text-center pb-lg-3">
         <h1 className="text-capitalize mb-5 display-5 fw-bold text-black text-line">
           Personal Information

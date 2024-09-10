@@ -129,7 +129,7 @@ const initialNodes = [
     data: {
       label: (
         <>
-          <h6 className="mb-1 fw-bold">Cylinder Gas</h6>
+          <h6 className="mb-1 fw-bold">Gas Cylinder</h6>
           <p className="mb-0">(For gases under pressure)</p>
         </>
       ),

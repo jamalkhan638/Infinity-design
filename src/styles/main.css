@@ -13383,3 +13383,9 @@ margin-top: 1rem;
   cursor: pointer;
   text-decoration: underline;
 }
+.form-check-input{
+  border-color: #e74c3c !important;
+}
+.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+  opacity: 0.8 !important;
+}

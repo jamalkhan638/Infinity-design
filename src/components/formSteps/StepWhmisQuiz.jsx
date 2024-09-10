@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Form } from "react-bootstrap";
 import CustomNodeFlow from "../line-match/CustomNodeFlow";
 import SymbolMatch from "../line-match/SymbolMatch";
+import Image from "next/image";
 
 
 
@@ -21,15 +22,19 @@ console.log("formDayta", formData, wdata)
           {/* <SymbolMatch /> */}
         </div>
       </fieldset>
+    
       <fieldset className="mt-5">
+    
         <div className="text-center pb-lg-3">
           <h1 className="text-capitalize mb-5 display-5 fw-bold text-black">
             WHMIS <span className="text-line text-line-2">Quiz</span>
           </h1>
         </div>
+  
         {whmisQuizData.map((quiz, index) => (
           <figure key={index} className="mt-4">
-            <h6 className="mb-3 fw-bold">{quiz.question}</h6>
+          
+            <h6 className="mb-3 fw-bold">{index + 1 + " . " + quiz.question}</h6>
             <div className="row row-cols-1 row-cols-md-2 gy-1 px-2">
               {quiz.options.map((option, idx) => (
                 <Form.Check

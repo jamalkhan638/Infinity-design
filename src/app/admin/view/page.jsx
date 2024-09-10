@@ -272,7 +272,7 @@ const ViewPage = () => {
                     onClick={() => {
                       handleClickRetake();
                     }}
-                    // href={ `/?retake=true&id=${data?.id}`}
+                // href={ `/`}
                     className="btn btn-lg btn-primary px-4 rounded-pill text-white"
                   >
                     Retake Quiz
