@@ -8,13 +8,13 @@ const StepFailed = () => {
       <div className="mx-auto text-center py-4" style={{ maxWidth: "34.5rem" }}>
         <div className="d-flex ">
           <h1
-            style={{ marginLeft: "8rem" }}
+            style={{ marginLeft: "8rem" , fontSize: "60px"}}
             className="mb-3 display-5 fw-bold text-primary"
           >
             Test Failed
           </h1>
           <div className="crossdiv">
-          <CloseOutlined style={{color: "white", height: "25px"}}/>
+          <CloseOutlined style={{color: "white", height: "25px", fontSize: "26px", marginTop: "0.3rem"}}/>
           </div>
        
         </div>

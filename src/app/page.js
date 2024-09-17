@@ -65,7 +65,7 @@ export default function Home() {
   const [statuserror, setStatusError] = useState();
   const [curdateerror, setCdateError] = useState();
   const [name, setName] = useState();
-  const [failed, setFailed] = useState(true);
+  const [failed, setFailed] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [namerror, setNameError] = useState();
   const validateGmpQuiz = (data) => {
