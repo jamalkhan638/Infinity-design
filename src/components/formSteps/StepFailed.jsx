@@ -1,0 +1,31 @@
+import React from "react";
+import { Button } from "react-bootstrap";
+import { Checkmark } from "react-checkmark";
+const StepFailed = () => {
+  return (
+    <fieldset>
+      <div className="mx-auto text-center py-4" style={{ maxWidth: "34.5rem" }}>
+        <div className="d-flex ">
+          <h1
+            style={{ marginLeft: "8rem" }}
+            className="mb-3 display-5 fw-bold text-primary"
+          >
+            Test Failed
+          </h1>
+        </div>
+
+        <Button
+          // onClick={() => {
+          //   handleClickRetake();
+          // }}
+         href={ `/`}
+          className="btn btn-lg btn-primary px-4 rounded-pill text-white"
+        >
+          Retake Quiz
+        </Button>
+      </div>
+    </fieldset>
+  );
+};
+
+export default StepFailed;

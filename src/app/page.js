@@ -13,8 +13,7 @@ import MetaData from "@/components/seo/MetaData";
 import { registerCandidate, removeDashes, sinCheck } from "./api/api";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-
-
+import StepFailed from "@/components/formSteps/StepFailed";
 
 export default function Home() {
   const validateWhmisQuiz = (data) => {
@@ -47,7 +46,7 @@ export default function Home() {
     email: "",
     sin: "",
     gender: null,
-    status: null
+    status: null,
   });
 
   const [errors, setErrors] = useState({});
@@ -62,12 +61,13 @@ export default function Home() {
   const [fnameErr, setFanmeErr] = useState();
   const [lnameErr, setLnameErr] = useState();
   const [dateError, setDateError] = useState();
-  const [gendererror, setGenderError] = useState()
-  const [statuserror, setStatusError] = useState()
-  const [curdateerror, setCdateError] = useState()
-  const [name, setName] = useState()
-  const[currentDate, setCurrentDate] = useState(new Date())
-  const [namerror, setNameError] = useState()
+  const [gendererror, setGenderError] = useState();
+  const [statuserror, setStatusError] = useState();
+  const [curdateerror, setCdateError] = useState();
+  const [name, setName] = useState();
+  const [failed, setFailed] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [namerror, setNameError] = useState();
   const validateGmpQuiz = (data) => {
     let valid = true;
     const errors = {};
@@ -84,17 +84,36 @@ export default function Home() {
     //   valid = false;
     //   setNameError("Please enter name for signature")
     // }
- 
-  
+
     return { valid, errors };
   };
   const validatePersonalInfo = (data) => {
-    const { firstName, lastName, dob, phoneNumber, email, sin, gender, status } = data;
+    const {
+      firstName,
+      lastName,
+      dob,
+      phoneNumber,
+      email,
+      sin,
+      gender,
+      status,
+    } = data;
     let data1 = {
       sin: sin,
     };
 
-    if (handlValidate(firstName, lastName, dob, phoneNumber, email, sin, gender, status)) {
+    if (
+      handlValidate(
+        firstName,
+        lastName,
+        dob,
+        phoneNumber,
+        email,
+        sin,
+        gender,
+        status
+      )
+    ) {
       return;
     }
 
@@ -102,14 +121,32 @@ export default function Home() {
       return;
     }
 
-    return firstName && lastName && dob && phoneNumber && email && sin && status && gender;
+    return (
+      firstName &&
+      lastName &&
+      dob &&
+      phoneNumber &&
+      email &&
+      sin &&
+      status &&
+      gender
+    );
   };
 
   // const handlesincheck = async (text) =>{
 
   // }
 
-  const handlValidate = (firstName, lastName, dob, phoneNumber, email, sin, gender, status) => {
+  const handlValidate = (
+    firstName,
+    lastName,
+    dob,
+    phoneNumber,
+    email,
+    sin,
+    gender,
+    status
+  ) => {
     const actuallCode = phoneNumber.replaceAll("_", "").replaceAll("-", "");
 
     var strlengths = actuallCode.length;
@@ -142,16 +179,16 @@ export default function Home() {
     if (sinError) {
       hasErrr = true;
     }
-    if(!dob){
-      setDateError("Please select Date of Birth")
+    if (!dob) {
+      setDateError("Please select Date of Birth");
       hasErrr = true;
     }
-    if(!status){
-      setStatusError("Please select Status")
+    if (!status) {
+      setStatusError("Please select Status");
       hasErrr = true;
     }
-    if(!gender){
-      setGenderError("Please select gender")
+    if (!gender) {
+      setGenderError("Please select gender");
       hasErrr = true;
     }
     return hasErrr;
@@ -168,15 +205,16 @@ export default function Home() {
     }
   };
   const handleInputChangeGMP = (e, question) => {
-  
     const { name, value } = e.target;
-    const index = gmpQuestionsData.findIndex(quiz => quiz.question === question);
+    const index = gmpQuestionsData.findIndex(
+      (quiz) => quiz.question === question
+    );
 
     if (index !== -1) {
       // Update the specific index with the new value (either "true" or "false")
       const updatedGmp = [...gmp]; // Copy the array to avoid mutating state directly
       updatedGmp[index] = value; // Set the value for the specific question
-  
+
       // Call a setState function to update the formData (assuming setGmp is the state setter)
       setgmp(updatedGmp);
     }
@@ -204,9 +242,9 @@ export default function Home() {
     setSinError("");
     setFanmeErr("");
     setLnameErr("");
-    setGenderError("")
-    setDateError("")
-    setStatusError("")
+    setGenderError("");
+    setDateError("");
+    setStatusError("");
 
     setPhoneNumberError("");
     const { name, value } = e.target;
@@ -222,10 +260,10 @@ export default function Home() {
       }
       let dateObj = new Date(date1);
 
-console.log("vallllll",dateObj)
-if(dateObj == "Invalid Date"){
-  setDateError("invalid Date");
-}
+      console.log("vallllll", dateObj);
+      if (dateObj == "Invalid Date") {
+        setDateError("invalid Date");
+      }
     }
 
     setFormData({
@@ -300,16 +338,19 @@ if(dateObj == "Invalid Date"){
     formData.signs_matching = wdata;
     formData.is_retake = retake ? true : false;
     formData.id = id;
-   
+
     console.log("Form submission triggered", formData);
 
     const { valid, errors } = validateGmpQuiz(formData);
     console.log("Validation result:", { valid, errors });
     console.log("Form data:", formData);
-    formData.current_date = currentDate
+    formData.current_date = currentDate;
     if (valid) {
       const res = await registerCandidate(formData);
-      if (res) {
+      if (res?.data?.data === "failed") {
+        setFailed(true);
+        setCurrentStep(4);
+      } else {
         toast.info(res?.data?.data);
         setCurrentStep(4); // Update currentStep to 4 upon successful validation
         setSubmitted(true); // Set submitted to true after successful submission
@@ -436,21 +477,23 @@ if(dateObj == "Invalid Date"){
     }
   };
 
-  const handleInputChangeDate = (e) =>{
-    setCurrentDate("")
-   setCurrentDate(e.target.value)
-  }
-  const handleInputChangeSignature = (e) =>{
-    setNameError("")
-    setName(e.target.value)
-   }
+  const handleInputChangeDate = (e) => {
+    setCurrentDate("");
+    setCurrentDate(e.target.value);
+  };
+  const handleInputChangeSignature = (e) => {
+    setNameError("");
+    setName(e.target.value);
+  };
   const renderStep = () => {
+    if (failed) {
+      return <StepFailed />;
+    }
     if (submitted) {
       return <StepThankyou />;
     }
     switch (currentStep) {
       case 1:
-        
         return (
           <StepPersonalInfo
             formData={formData}
@@ -463,8 +506,8 @@ if(dateObj == "Invalid Date"){
             lnameErr={lnameErr}
             setDateError={setDateError}
             dateError={dateError}
-            gendererror = {gendererror}
-            statuserror = {statuserror}
+            gendererror={gendererror}
+            statuserror={statuserror}
           />
         );
       case 2:
@@ -483,13 +526,13 @@ if(dateObj == "Invalid Date"){
             formData={formData}
             handleInputChange={handleInputChangeGMP}
             errors={errors}
-            setCdateError = {setCdateError}
-            curdateerror = {curdateerror}
-            namerror = {namerror}
-            handleInputChangeSignature = {handleInputChangeSignature}
-            handleInputChangeDate = {handleInputChangeDate}
-            name = {name}
-            gmp = {gmp}
+            setCdateError={setCdateError}
+            curdateerror={curdateerror}
+            namerror={namerror}
+            handleInputChangeSignature={handleInputChangeSignature}
+            handleInputChangeDate={handleInputChangeDate}
+            name={name}
+            gmp={gmp}
           />
         );
       // case 4:
@@ -508,7 +551,7 @@ if(dateObj == "Invalid Date"){
         <Banner />
         <ToastContainer />
         <section className="py-5">
-        <span className="position-absolute top-1 end-0">
+          <span className="position-absolute top-1 end-0">
             <Image
               width={720}
               height={879}
@@ -516,7 +559,7 @@ if(dateObj == "Invalid Date"){
               alt="logo-p"
             />
           </span>
-      
+
           <Container fluid="xxl" className="position-relative">
             <div className="form-steps">
               <ul className="nav flex-nowrap gap-4 justify-content-center mx-auto w-90">
@@ -578,42 +621,43 @@ if(dateObj == "Invalid Date"){
                   </div>
                 </li>
               </ul>
-        
+
               <Form onSubmit={handleSubmit}>
                 <div className="mt-5 pt-5">{renderStep()}</div>
                 <div className="mt-5 text-center">
-                  {!submitted && currentStep > 1 && (
-                    <button
-                      type="button"
-                      className="btn btn-outline-primary rounded-0 me-2"
-                      onClick={handlePrevStep}
-                    >
-                      Previous
-                    </button>
-                  )}
-                  {!submitted && currentStep < 3 && (
-                    <button
-                      type="button"
-                      className="btn btn-outline-primary rounded-0"
-                      onClick={handleNextStep}
-                    >
-                      Next
-                    </button>
-                  )}
-                  {!submitted && currentStep === 3 && (
-                    <button
-                      type="submit"
-                      className="btn btn-outline-primary rounded-0"
-                    >
-                      Submit
-                    </button>
-                  )}
+                  {!failed ? (
+                    <>
+                      {!submitted && currentStep > 1 && (
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary rounded-0 me-2"
+                          onClick={handlePrevStep}
+                        >
+                          Previous
+                        </button>
+                      )}
+                      {!submitted && currentStep < 3 && (
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary rounded-0"
+                          onClick={handleNextStep}
+                        >
+                          Next
+                        </button>
+                      )}
+                      {!submitted && currentStep === 3 && (
+                        <button
+                          type="submit"
+                          className="btn btn-outline-primary rounded-0"
+                        >
+                          Submit
+                        </button>
+                      )}
+                    </>
+                  ) : null}
                 </div>
-            
               </Form>
-          
             </div>
-        
           </Container>
         </section>
       </main>

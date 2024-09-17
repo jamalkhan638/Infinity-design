@@ -51,11 +51,11 @@ const Footer = () => {
               <div className="fw-light">Powered by:</div>
               <a
                 className="link-light fw-bold"
-                href="https://www.fullcircleagency.ca/"
+                href="https://sahamarketing.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Full Circle Agency Inc.
+                SAHA Marketing
               </a>
             </div>
           </div>
