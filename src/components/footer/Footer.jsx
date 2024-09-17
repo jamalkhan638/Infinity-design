@@ -47,7 +47,9 @@ const Footer = () => {
               info@infinityemployment.ca
             </a>
 
-            <div className="mt-3">
+           
+          </div>
+          <div className="mt-3">
               <div className="fw-light">Powered by:</div>
               <a
                 className="link-light fw-bold"
@@ -58,7 +60,6 @@ const Footer = () => {
                 SAHA Marketing
               </a>
             </div>
-          </div>
         </div>
       </Container>
     </footer>

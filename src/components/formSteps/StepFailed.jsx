@@ -1,3 +1,4 @@
+import { CloseOutlined } from "@ant-design/icons";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { Checkmark } from "react-checkmark";
@@ -12,13 +13,17 @@ const StepFailed = () => {
           >
             Test Failed
           </h1>
+          <div className="crossdiv">
+          <CloseOutlined style={{color: "white", height: "25px"}}/>
+          </div>
+       
         </div>
 
         <Button
           // onClick={() => {
           //   handleClickRetake();
           // }}
-         href={ `/`}
+          href={`/`}
           className="btn btn-lg btn-primary px-4 rounded-pill text-white"
         >
           Retake Quiz

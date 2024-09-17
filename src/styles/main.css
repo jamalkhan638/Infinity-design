@@ -13389,3 +13389,16 @@ margin-top: 1rem;
 .form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
   opacity: 0.8 !important;
 }
+.crossdiv{
+  background-color: red;
+  border-radius: 50px;
+  height: 26px;
+  width: 27px;
+  margin-left: 1rem;
+  margin-top: 0.7rem
+
+}
+
+
+
+
