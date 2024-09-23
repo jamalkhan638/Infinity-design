@@ -508,6 +508,8 @@ const CustomNodeFlow = ({ setWdata, wdata }) => {
       preventScrolling={false}
       zoomOnPinch={false}
       panOnScroll={false}
+      zoomOnDoubleClick={false}  // Disable zoom on double click
+      elementsSelectable={false} // Optional: Disable selecting elements
       onReconnect={onReconnect}
       onReconnectStart={onReconnectStart}
       onReconnectEnd={onReconnectEnd}

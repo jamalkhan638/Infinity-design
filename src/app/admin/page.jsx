@@ -168,6 +168,7 @@ const AdminDashboardPage = () => {
                   {/* <th className="bg-primary text-white">Email</th> */}
                   <th className="bg-primary text-white">Phone Number</th>
                   <th className="bg-primary text-white">SIN</th>
+                  <th className="bg-primary text-white">Date</th>
                   <th className="bg-primary text-white">GMP/WHIMS</th>
                 </tr>
               </thead>
@@ -177,9 +178,10 @@ const AdminDashboardPage = () => {
                     <td className="text-capitalize">
                       {employee.firstName} {employee.lastName}
                     </td>
-                    {/* <td>{employee.email}</td> */}
+                    
                     <td>{employee.phoneNumber}</td>
                     <td>{employee.sin}</td>
+                    <td>{new Date(employee.saved_date).toUTCString()}</td>
                     <td>
                       <div className="d-flex justify-content-center gap-1">
                         <Link href={`/admin/view?id=${employee?.id}`}>

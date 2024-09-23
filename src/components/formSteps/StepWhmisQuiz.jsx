@@ -37,7 +37,10 @@ console.log("formDayta", formData, wdata)
             <h6 className="mb-3 fw-bold">{index + 1 + " . " + quiz.question}</h6>
             <div className="row row-cols-1 row-cols-md-2 gy-1 px-2">
               {quiz.options.map((option, idx) => (
+                <div className="d-flex">
+            <p style={{fontWeight: "500"}}>{option.value.toUpperCase()}</p>
                 <Form.Check
+                style={{marginLeft: "6px"}}
                   key={idx}
                   type="radio"
                   name={quiz.question}
@@ -50,6 +53,8 @@ console.log("formDayta", formData, wdata)
                   }
                   isInvalid={!!errors[quiz.question]}
                 />
+                
+                    </div>
               ))}
               <Form.Control.Feedback type="invalid">
                 {errors[quiz.question]}

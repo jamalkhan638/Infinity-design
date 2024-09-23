@@ -5,6 +5,7 @@ const whmisQuizData = [
     options: [
       {label: "Working Hazardous Metals Investigations System",
         value: "a"
+       
       },
       
       {
