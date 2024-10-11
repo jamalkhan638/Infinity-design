@@ -38,6 +38,7 @@ export default function Home() {
     return { valid, errors };
   };
   const [currentStep, setCurrentStep] = useState(1);
+  const [testInfo, setTestInfo] = useState()
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -347,7 +348,8 @@ export default function Home() {
     formData.current_date = currentDate;
     if (valid) {
       const res = await registerCandidate(formData);
-      if (res?.data?.data === "failed") {
+      setTestInfo(res?.data?.data)
+      if (res?.data?.statusMessage === "failed") {
         setFailed(true);
         setCurrentStep(4);
       } else {
@@ -487,10 +489,10 @@ export default function Home() {
   };
   const renderStep = () => {
     if (failed) {
-      return <StepFailed />;
+      return <StepFailed testInfo = {testInfo} />;
     }
     if (submitted) {
-      return <StepThankyou />;
+      return <StepThankyou testInfo = {testInfo} />;
     }
     switch (currentStep) {
       case 1:

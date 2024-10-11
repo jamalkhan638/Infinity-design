@@ -194,7 +194,7 @@ const ViewPage = () => {
             <div className="row row-cols-2 row-cols-md-3 row-cols-xl-5 align-items-center gy-4">
               <div className="col">
                 <h5 className="mb-0 fw-semibold">First Name:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-capitalize text-truncate">
+                <p style={{fontSize: "20px"}} className="mb-0 text-capitalize text-truncate">
                   {data?.firstName}
                 </p>
               </div>
@@ -206,7 +206,7 @@ const ViewPage = () => {
               </div>
               <div className="col">
                 <h5 className="mb-0 fw-semibold">Last Name:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-capitalize text-truncate">
+                <p style={{fontSize: "20px"}} className="mb-0 text-capitalize text-truncate">
                   {data?.lastName}
                 </p>
               </div>
@@ -218,11 +218,11 @@ const ViewPage = () => {
               </div>
               <div className="col">
                 <h5 className="mb-0 fw-semibold">Date it Birth:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-truncate">{data?.dob}</p>
+                <p style={{fontSize: "20px"}} className="mb-0 text-truncate">{data?.dob}</p>
               </div>
               <div className="col">
                 <h5 className="mb-0 fw-semibold">Phone Number:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-truncate">{data?.phoneNumber}</p>
+                <p style={{fontSize: "20px"}} className="mb-0 text-truncate">{data?.phoneNumber}</p>
               </div>
               <div className="col d-none d-xl-flex justify-content-center text-center">
                 <hr
@@ -232,7 +232,7 @@ const ViewPage = () => {
               </div>
               <div className="col">
                 <h5 className="mb-0 fw-semibold">Email:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-truncate">{data?.email}</p>
+                <p style={{fontSize: "20px"}} className="mb-0 text-truncate">{data?.email}</p>
               </div>
               <div className="col d-none d-xl-flex justify-content-center text-center">
                 <hr
@@ -242,7 +242,7 @@ const ViewPage = () => {
               </div>
               <div className="col">
                 <h5 className="mb-0 fw-semibold">SIN:</h5>
-                <p style={{fontSize: "18px"}} className="mb-0 text-truncate">{data?.sin}</p>
+                <p style={{fontSize: "20px"}} className="mb-0 text-truncate">{data?.sin}</p>
               </div>
             </div>
             <div className="mt-5 text-center mx-auto max-w-800">
